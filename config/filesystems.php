@@ -43,6 +43,11 @@ return [
 
     'disks' => [
 
+        'files' => [
+            'driver' => 'local',
+            'root' => env('STORAGE_FILES_PATH')
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
