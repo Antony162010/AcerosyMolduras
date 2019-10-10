@@ -20,5 +20,5 @@ Route::group(['middleware' => ['session']], function () {
 });
 
 Route::fallback(function () {
-    return view('NotFound');
+    return view('notFound');
 });
