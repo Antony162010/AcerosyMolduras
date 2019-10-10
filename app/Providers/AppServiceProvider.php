@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+session_start();
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->share($_SESSION);
     }
 
     /**

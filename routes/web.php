@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => ['session']], function () {
+    Route::get('/', ['as' => 'home', 'uses' => 'UserController@getHome']);
+});
+
+Route::fallback(function () {
+    return view('NotFound');
+});
