@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 session_start();
-
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,9 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share($_SESSION);
+        $this->composer();
     }
-
+    
     /**
      * Register any application services.
      *
@@ -25,5 +24,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    public function composer()
+    {
+        view()->share($_SESSION);
     }
 }
