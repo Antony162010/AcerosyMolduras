@@ -1,21 +1,13 @@
 <?php
 
 namespace App\Providers;
+
 session_start();
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->composer();
-    }
-    
     /**
      * Register any application services.
      *
@@ -25,6 +17,17 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->composer();
+    }
+
 
     public function composer()
     {

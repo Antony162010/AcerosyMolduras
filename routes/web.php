@@ -10,9 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/login', ['as' => 'login', function () {
+    return view('user.login');
+}]);
 
 Route::get('/', function () {
-    return view('layout.home');
+    return redirect()->route('login');
 });
 
 // Route::group(['middleware' => ['session']], function () {
@@ -20,5 +23,5 @@ Route::get('/', function () {
 // });
 
 Route::fallback(function () {
-    return view('notFound');
+    return view('error/notFound');
 });

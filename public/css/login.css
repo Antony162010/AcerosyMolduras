@@ -1,0 +1,28 @@
+.logo {
+  min-width: 30%;
+  min-height: 30%;
+}
+
+.login-background {
+  background-image: url(../img/login-background.png);
+  background-image: linear-gradient(
+      rgba(15, 25, 53, 0.85),
+      rgba(15, 25, 53, 0.85)
+    ),
+    url(../img/login-background.png);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  -webkit-flex-grow: 1;
+  flex-grow: inherit;
+}
