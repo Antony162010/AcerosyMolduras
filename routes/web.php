@@ -10,15 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/login', ['as' => 'login', function () {
+    return view('user.login');
+}]);
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Route::group(['middleware' => ['session']], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'UserController@getHome']);
-});
+// Route::group(['middleware' => ['session']], function () {
+//     Route::get('/', ['as' => 'home', 'uses' => 'ExampleController@index']);
+// });
 
 Route::fallback(function () {
-    return view('notFound');
+    return view('error/notFound');
 });
