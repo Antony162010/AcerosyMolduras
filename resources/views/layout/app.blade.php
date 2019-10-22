@@ -26,7 +26,7 @@
     <link href="{{ asset('css/principal.css') }}" rel="stylesheet">
     {{-- Styles --}} @yield('assets')
     {{-- Scripts --}} @yield('scripts')
-
+    
 </head>
 
 <body>
