@@ -12,12 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.home');
 });
 
-Route::group(['middleware' => ['session']], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'UserController@getHome']);
-});
+// Route::group(['middleware' => ['session']], function () {
+//     Route::get('/', ['as' => 'home', 'uses' => 'ExampleController@index']);
+// });
 
 Route::fallback(function () {
     return view('notFound');
