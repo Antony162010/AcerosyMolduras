@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\StoreHouseRepository;
 use Illuminate\Http\Request;
+use DB;
 
 class StoreHouseController extends Controller
-{
+{   
+    protected $storeHouseRepository;
+
+    public function __construct(StoreHouseRepository $storeHouseRepository){
+        $this->storeHouseRepository = $storeHouseRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +45,7 @@ class StoreHouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->storeHouseRepository->store($request);
     }
 
     /**
@@ -46,7 +54,7 @@ class StoreHouseController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
-    public function show(Provider $provider)
+    public function show(Request $request)
     {
         //
     }
@@ -84,4 +92,9 @@ class StoreHouseController extends Controller
     {
         //
     }
+
+    public function info(Request $request){
+        return $this->storeHouseRepository->info($request);
+    }
+
 }
