@@ -45,7 +45,7 @@
                 @endif
                 <div>
                     <div class="container card bg-light p-t-50 p-r-50 p-l-50 p-b-50">
-                        <img class="img-fluid rounded mx-auto d-block" src="{{asset('img/logo.png')}}" alt="logo">
+                        <img class="img-fluid rounded mx-auto d-block" src="{{asset('img/Aceros y molduras logo.png')}}" alt="logo">
                         <br>
                         <form method="POST" action="{{ url('/signin')}}">
                             {{ csrf_field() }}

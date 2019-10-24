@@ -17,6 +17,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController@index']);
+
 // Route::group(['middleware' => ['session']], function () {
     Route::get('/home', ['as' => 'home', 'uses' => 'AdminController@home']);
 

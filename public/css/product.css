@@ -1,0 +1,34 @@
+ 
+ .product-background {
+    background-image: url(../img/login-background.png);
+    background-image: linear-gradient(
+        rgba(15, 53, 20, 0.85),
+        rgba(19, 53, 15, 0.85)
+        ),
+        url(../img/login-background.png);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    -webkit-flex-grow: 1;
+    flex-grow: inherit;
+}
+
+.btn btn-product{
+    width: 100%;
+    height: 60px;
+    background: #a0a36f;
+    border: 2px solid #0a0000;
+    cursor: pointer;
+    font-size: 25px;
+    color: #1b4f72;
+}
