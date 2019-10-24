@@ -40,7 +40,7 @@ class StoreHouseRepository
             }*/
             
             if ($response) {
-                return view('store_house.index')->with('data', $response[0]); //corregir this
+                return view('store_house.index')->with(['data' => $response]); //corregir this
                 
             } else{
                 return redirect('/'); 
@@ -78,13 +78,11 @@ class StoreHouseRepository
                 $boxesQuantity
             ]);
 
-            //Some logic...
-
             if ($response[0]->response == 1) {
                 return redirect('store_house')->with('successMsg', 'Se guardo el producto en almacén.'); 
                 //response 1, go almacen ¿Porque 1 y 2 los cuenta acá? wtf 
             } else {
-                return redirect(''); // 0 o 2, 
+                return redirect('')->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
             }
 
         } catch (\Exception $ex) {

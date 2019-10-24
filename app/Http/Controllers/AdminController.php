@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         if (array_key_exists('user_session', $_SESSION)) {
-            return \redirect()->guest('layout.home');
+            return \redirect()->guest('/home');
         } else {
             return \view('user.login');
         }
@@ -28,7 +28,7 @@ class AdminController extends Controller
         return \view('layout.home');
     }
 
-    public function signin(UserRequest $request)
+    public function signin(Request $request)
     {
         return $this->adminRepository->signin($request);
     }

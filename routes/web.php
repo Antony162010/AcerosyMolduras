@@ -17,9 +17,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::post('/signin', ['as' => 'signin', 'uses' => 'AdminController@signin']);
 Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController@index']);
 
-// Route::group(['middleware' => ['session']], function () {
+Route::group(['middleware' => ['session']], function () {
     Route::get('/home', ['as' => 'home', 'uses' => 'AdminController@home']);
 
     // Almacen
@@ -48,4 +49,4 @@ Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController
     Route::fallback(function () {
         return view('error/notFound');
     });
-// });
+});
