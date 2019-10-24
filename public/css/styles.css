@@ -9840,3 +9840,48 @@
     right: 0px;
     bottom: 0px;
 }
+
+.btn-primary {
+    border-color: #0B4C5F !important;
+    background-color: #0B4C5F !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #0B615E !important;
+}
+
+.nav-style {
+    background-color: #0B4C5F !important;
+}
+
+.navbar-padding {
+    padding: 4px 16px!important
+}
+
+.navbar-logo {
+    height: 45px;
+    width: 150px;
+    display: inline-block;
+}
+
+.pagination>li.active>a {
+    background-color: #0B4C5F !important;
+    border-color: #0B4C5F !important;
+    color: white !important;
+}
+
+.pagination>li>a {
+    color: #0B4C5F !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff !important;
+    background-color: #0B4C5F !important;
+}
+
+.table-style {
+    color: #fff !important;
+    border-color: #0B4C5F !important;
+    background-color: #0B4C5F !important;
+}
