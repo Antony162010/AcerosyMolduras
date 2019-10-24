@@ -30,6 +30,8 @@ Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController
         Route::put('/edit', ['as' => 'store_house.edit', 'uses' => 'StoreHouseController@edit']);
         Route::get('/update', ['as' => 'store_house.update', 'uses' => 'StoreHouseController@update']);
         Route::delete('/destroy', ['as' => 'store_house.destroy', 'uses' => 'StoreHouseController@destroy']);
+        Route::post('/info', ['as' => 'store_house.info', 'uses' => 'StoreHouseController@info']);
+        Route::post('/store', ['as' => 'store_house.store', 'uses' => 'StoreHouseController@store']);
     });
 
     // Productos

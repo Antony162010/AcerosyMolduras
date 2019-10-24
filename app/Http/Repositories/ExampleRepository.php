@@ -37,6 +37,10 @@ class ExampleRepository
                 'DESCRIPCION' => $titleBook,
             ]);
 
+            /* $response = DB::select("call sp_()", [
+
+            ]); */
+
             if ($response) {
                 return redirect('books');
             } else {
