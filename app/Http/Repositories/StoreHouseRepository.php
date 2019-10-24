@@ -40,7 +40,8 @@ class StoreHouseRepository
             }*/
             
             if ($response) {
-                return $response;
+                return view('store_house.index')->with('data', $response[0]); //corregir this
+                
             } else{
                 return redirect('/'); 
             }
