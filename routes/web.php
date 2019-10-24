@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Session\Store;
+
 Route::get('/login', ['as' => 'login', 'uses' => 'AdminController@login']);
 
 Route::get('/', function () {
@@ -25,3 +28,5 @@ Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController
 Route::fallback(function () {
     return view('error/notFound');
 });
+
+Route::get('/store', ['as' => 'productos.store', 'uses' => 'ProductController@store']);

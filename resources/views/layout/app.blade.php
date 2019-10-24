@@ -23,9 +23,11 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
-    <link href="{{ asset('css/principal.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/principal.css') }}" rel="stylesheet">}
+    <link href="{{ asset('css/product.css') }}" rel="stylesheet">}
     {{-- Styles --}} @yield('assets')
     {{-- Scripts --}} @yield('scripts')
+
     
 </head>
 
