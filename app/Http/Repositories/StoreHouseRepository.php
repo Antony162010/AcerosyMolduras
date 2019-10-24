@@ -16,7 +16,8 @@ class StoreHouseRepository
     public function info($request){ //de un producto en un almacén
         try{
             $validator = Validator::make($request->all(), [
-                'id-product'=>'required'
+                'id-product'=>'required',
+                'id-warehouse'=>'required'
             ], $this->messages);
 
             if($validator->fails()){
@@ -26,10 +27,13 @@ class StoreHouseRepository
             }
 
             $idProduct = $request->input('id-product');
-
+            $idWarehouse = $request->input('id-warehouse');
             //Logica
 
-            $response = DB::select("CALL sp_get_one_product_warehouse(?)", [$idProduct]);
+            $response = DB::select("CALL sp_get_one_product_warehouse(?,?)", [
+                $idProduct,
+                $idWarehouse
+                ]);
 
             /*if($response == null){
                 return redirect('/product');
@@ -73,6 +77,7 @@ class StoreHouseRepository
                 $boxesQuantity
             ]);
 
+            //Some logic...
 
             if ($response[0]->response == 1) {
                 return redirect('store_house')->with('successMsg', 'Se guardo el producto en almacén.'); 
@@ -80,6 +85,7 @@ class StoreHouseRepository
             } else {
                 return redirect(''); // 0 o 2, 
             }
+
         } catch (\Exception $ex) {
             return back()
                 ->withErrors($ex->getMessage())
