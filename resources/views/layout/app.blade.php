@@ -23,14 +23,85 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
-    <link href="{{ asset('css/principal.css') }}" rel="stylesheet">
+    {{-- DataTables --}}
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/keytable/2.5.1/css/keyTable.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css" />
+
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/keytable/2.5.1/js/dataTables.keyTable.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js">
+    </script>
+
+    {{-- FontAwesome --}}
+    <script src="https://kit.fontawesome.com/f3fb6f4736.js" crossorigin="anonymous"></script>
+
+    {{-- Personales --}}
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     {{-- Styles --}} @yield('assets')
     {{-- Scripts --}} @yield('scripts')
 
 </head>
 
 <body>
-    
+
+    <nav class="navbar navbar-expand-lg navbar-dark nav-style navbar-padding shadow">
+
+        <a class="navbar-brand" href={{route( "home")}}>
+            <span><img class="navbar-logo" src="{{asset('img/logo-total.png')}}" /></span>
+            - Admin
+        </a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href={{ route('store_house.index') }}>
+                        <em class="fas fa-warehouse m-r-4"></em> Almacén</a>
+                </li>&nbsp;
+                <li class="nav-item active">
+                    <a class="nav-link" href={{ route('product.index') }}>
+                        <em class="fas fa-archive"></em> Productos</a>
+                </li>&nbsp;
+                {{-- <li class="nav-item active">
+                    <a class="nav-link" href={{ route('books') }}>
+                <em class="fas fa-book m-r-4 "></em>Libros</a>
+                </li>&nbsp; --}}
+
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"><em class="fas fa-user-circle"></em>
+                        Hola, {{-- {{$_SESSION['user_session']['user_name']}} --}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" {{-- href={{ route( 'logout') }} --}}> <em
+                                class="fas fa-power-off"></em> Cerrar
+                            sesión</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
     <div class="body" style="margin-bottom: 60px;">
         @yield('content')
     </div>

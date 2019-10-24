@@ -11,14 +11,37 @@
 |
 */
 
+/* Rutas iniciales */
+Route::get('/login', ['as' => 'login', 'uses' => 'AdminController@index']);
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Route::group(['middleware' => ['session']], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'UserController@getHome']);
-});
+// Route::group(['middleware' => ['session']], function () {
+    Route::get('/home', ['as' => 'home', 'uses' => 'AdminController@home']);
 
-Route::fallback(function () {
-    return view('notFound');
-});
+    // Almacen
+    Route::group(['prefix' => 'store_house'], function () {
+        Route::get('/', ['as' => 'store_house.index', 'uses' => 'StoreHouseController@index']);
+        Route::get('/create', ['as' => 'store_house.create', 'uses' => 'StoreHouseController@create']);
+        Route::post('/save', ['as' => 'store_house.save', 'uses' => 'StoreHouseController@save']);
+        Route::put('/edit', ['as' => 'store_house.edit', 'uses' => 'StoreHouseController@edit']);
+        Route::get('/update', ['as' => 'store_house.update', 'uses' => 'StoreHouseController@update']);
+        Route::delete('/destroy', ['as' => 'store_house.destroy', 'uses' => 'StoreHouseController@destroy']);
+    });
+
+    // Productos
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
+        Route::get('/create', ['as' => 'product.create', 'uses' => 'ProductController@create']);
+        Route::post('/save', ['as' => 'product.save', 'uses' => 'ProductController@save']);
+        Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
+        Route::get('/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
+        Route::delete('/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
+    });
+
+    /* Cualquier ruta externa no funciona */
+    Route::fallback(function () {
+        return view('error/notFound');
+    });
+// });
