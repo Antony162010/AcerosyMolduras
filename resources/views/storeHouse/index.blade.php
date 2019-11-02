@@ -32,7 +32,7 @@
             @foreach ($products as $p)
             <tr>
                 <td>{{$p->code}}</td>
-                <td>{{$p->c_name}}</td>
+                <td>{{$p->category}}</td>
                 <td>{{$p->model}}</td>
                 <td>{{$p->mark}}</td>
                 <td>{{$p->boxes_quantity}}</td>

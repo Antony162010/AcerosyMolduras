@@ -17,7 +17,7 @@ class StoreHouseRepository
         try{
             $validator = Validator::make($request->all(), [
                 'id-product'=>'required',
-                'id-warehouse'=>'required'
+                //'id-warehouse'=>'required'
             ], $this->messages);
 
             if($validator->fails()){
@@ -27,12 +27,12 @@ class StoreHouseRepository
             }
 
             $idProduct = $request->input('id-product');
-            $idWarehouse = $request->input('id-warehouse');
+            //$idWarehouse = $request->input('id-warehouse');
             //Logica
 
-            $response = DB::select("CALL sp_get_one_product_warehouse(?,?)", [
+            $response = DB::select("CALL sp_get_product_inventory(?)", [
                 $idProduct,
-                $idWarehouse
+                //$idWarehouse
                 ]);
 
             /*if($response == null){
@@ -40,6 +40,7 @@ class StoreHouseRepository
             }*/
             
             if ($response) {
+                
                 return view('store_house.index')->with(['data' => $response]); //corregir this
                 
             } else{
