@@ -21,20 +21,14 @@ class StoreHouseController extends Controller
      */
     public function index()
     {
-        // $products = DB::select('CALL sp_get_store_house_products(?)', [date_format(now(), 'Y-m-d')]);
-
-        // return view('storeHouse.index')->with('products', $products);
-        return view('storeHouse.index');
+        /* Trae todos los productos según el almacén - Funciona */
+        $products = DB::select('CALL sp_warehouse_inventory(?)', ['SH001']);
+        return view('storeHouse.index')->with('products', $products);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('storeHouse.create');
+    public function info(Request $request){
+        /* Información de un producto por almacén. - Funciona*/
+        return $this->storeHouseRepository->info($request);
     }
 
     /**
@@ -45,7 +39,18 @@ class StoreHouseController extends Controller
      */
     public function store(Request $request)
     {
+        /* Insertar un producto en un almacén con una determinada cantidad - Funciona */
         return $this->storeHouseRepository->store($request);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //return view('storeHouse.create');
     }
 
     /**
@@ -93,8 +98,6 @@ class StoreHouseController extends Controller
         //
     }
 
-    public function info(Request $request){
-        return $this->storeHouseRepository->info($request);
-    }
+    
 
 }

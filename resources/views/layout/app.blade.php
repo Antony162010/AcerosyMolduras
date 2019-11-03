@@ -90,7 +90,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown"><em class="fas fa-user-circle"></em>
-                        Hola, {{-- {{$_SESSION['user_session']['user_name']}} --}}
+                        Hola, {{$_SESSION['user_session']['user_name']}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" {{-- href={{ route( 'logout') }} --}}> <em

@@ -6,15 +6,20 @@
         @endif
 
         <div class="form-group">
-            <label for="code-book">Código del libro:</label>
-            <input type="text" class="form-control" id="code_book" @if ( $type=='update' )value="{{ $book->CODLIBRO }}"
-                @else value="{{old('code-book')}}" @endif name="code-book" placeholder="">
+            <label for="id-warehouse">Almacén:</label>
+            {{-- <input type="text" class="form-control" id="id_warehouse" @if ( $type=='update' )value="{{ $book->CODLIBRO }}"
+                @else value="{{old('id-warehouse')}}" @endif name="id-warehouse" placeholder="">
 
         </div>
+        <div class="form-group"> --}}
+            <select class="custom-select" id="inputGroupSelect01">
+              <option value="1" selected>Almácen COLONIAL</option>
+            </select>
+          </div>
         <div class="form-group">
-            <label for="name-book">Nombre del libro:</label>
-            <input type="text" class="form-control" id="name_book" @if ( $type=='update' )value="{{ $book->CODLIBRO }}"
-                @else value="{{old('name-book')}}" @endif name="name-book" placeholder="">
+            <label for="ip-product">Producto:</label>
+            <input type="text" class="form-control" id="id_product" @if ( $type=='update' )value="{{ $book->CODLIBRO }}"
+                @else value="{{old('ip-product')}}" @endif name="ip-product" placeholder="">
         </div>
 
         @if ($errors->any())

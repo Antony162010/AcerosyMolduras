@@ -47,7 +47,7 @@
                     <div class="container card bg-light p-t-50 p-r-50 p-l-50 p-b-50">
                         <img class="img-fluid rounded mx-auto d-block" src="{{asset('img/Aceros y molduras logo.png')}}" alt="logo">
                         <br>
-                        <form method="POST" action="{{ url('/signin')}}">
+                        <form method="POST" action="{{ route('signin')}}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="user_email">Correo</label>
