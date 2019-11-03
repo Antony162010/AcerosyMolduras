@@ -13,41 +13,36 @@ class StoreHouseRepository
         'id-product.required' => 'El campo id-product es necesario.'
     ];
 
-    public function info($request){ //de un producto en un almacén
-        try{
+    public function info($request) 
+    { 
+        try {
             $validator = Validator::make($request->all(), [
-                'id-product'=>'required',
-                //'id-warehouse'=>'required'
+                'id-product' => 'required',
+                'id-warehouse'=>'required'
             ], $this->messages);
 
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return redirect('/home')
                     ->withErrors($validator)
                     ->withInput();
             }
 
             $idProduct = $request->input('id-product');
-            //$idWarehouse = $request->input('id-warehouse');
-            //Logica
+            $idWarehouse = $request->input('id-warehouse');
 
-            $response = DB::select("CALL sp_get_product_inventory(?)", [
+            $response = DB::select("CALL sp_get_product_inventory(?,?)", [
                 $idProduct,
-                //$idWarehouse
-                ]);
+                $idWarehouse
+            ]);
 
-            /*if($response == null){
-                return redirect('/product');
-            }*/
-            
             if ($response) {
-                
-                return view('store_house.index')->with(['data' => $response]); //corregir this
-                
-            } else{
+                return view('storeHouse.index')->with('products', $response);
+            } else {
                 return redirect('/'); 
             }
 
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
+            dd($ex->getMessage());
             return back()
                 ->withErrors($ex->getMessage())
                 ->withInput();
@@ -55,7 +50,8 @@ class StoreHouseRepository
     }
 
 
-    public function store($request){
+    public function store($request) 
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'id-warehouse' => 'required', //idstore_house
@@ -79,18 +75,15 @@ class StoreHouseRepository
                 $boxesQuantity
             ]);
 
-            if ($response[0]->response == 1) {
-                return redirect('store_house')->with('successMsg', 'Se guardo el producto en almacén.'); 
-                //response 1, go almacen ¿Porque 1 y 2 los cuenta acá? wtf 
+            if ($response) {
+                return redirect('store_house')->with('successMsg', 'Se guardo el producto en almacén.');
             } else {
                 return redirect('')->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
             }
-
         } catch (\Exception $ex) {
             return back()
                 ->withErrors($ex->getMessage())
                 ->withInput();
         }
     }
-
 }
