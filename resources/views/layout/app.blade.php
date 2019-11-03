@@ -53,6 +53,7 @@
     {{-- Styles --}} @yield('assets')
     {{-- Scripts --}} @yield('scripts')
 
+    
 </head>
 
 <body>
@@ -60,8 +61,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark nav-style navbar-padding shadow">
 
         <a class="navbar-brand" href={{route( "home")}}>
-            <span><img class="navbar-logo" src="{{asset('img/logo-total.png')}}" /></span>
-            - Admin
+            <span><img class="navbar-logo" src="{{asset('img/Aceros y molduras logo.png')}}" /></span>
+             Admin
         </a>
 
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
