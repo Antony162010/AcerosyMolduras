@@ -53,7 +53,7 @@
     {{-- Styles --}} @yield('assets')
     {{-- Scripts --}} @yield('scripts')
 
-    
+
 </head>
 
 <body>
@@ -62,7 +62,7 @@
 
         <a class="navbar-brand" href={{route( "home")}}>
             <span><img class="navbar-logo" src="{{asset('img/Aceros y molduras logo.png')}}" /></span>
-             Admin
+            Admin
         </a>
 
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -93,8 +93,7 @@
                         Hola, {{$_SESSION['user_session']['user_name']}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" {{-- href={{ route( 'logout') }} --}}> <em
-                                class="fas fa-power-off"></em> Cerrar
+                        <a class="dropdown-item" href={{ route( 'logout') }}> <em class="fas fa-power-off"></em> Cerrar
                             sesión</a>
                     </div>
                 </li>

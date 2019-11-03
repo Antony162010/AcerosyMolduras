@@ -32,4 +32,9 @@ class AdminController extends Controller
     {
         return $this->adminRepository->signin($request);
     }
+
+    public function logout()
+    {
+        return $this->adminRepository->logout();
+    }
 }

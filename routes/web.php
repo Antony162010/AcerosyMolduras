@@ -35,8 +35,9 @@ Route::group(['prefix' => 'store_house'], function () {
 
 
 Route::group(['middleware' => ['session']], function () {
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'AdminController@logout']); //cerrar sesión
     Route::get('/home', ['as' => 'home', 'uses' => 'AdminController@home']);
-
+    
     // Almacen
     
 

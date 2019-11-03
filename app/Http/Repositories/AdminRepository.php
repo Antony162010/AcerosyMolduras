@@ -36,4 +36,10 @@ class AdminRepository
             return response()->json(['message' => $ex->getMessage()], 500);
         }
     }
+
+    public function logout()
+    {
+        unset($_SESSION['user_session']);
+        return redirect()->route('login');
+    }
 }

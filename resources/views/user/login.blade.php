@@ -44,8 +44,9 @@
                 <br>
                 @endif
                 <div>
-                    <div class="container card bg-light p-t-50 p-r-50 p-l-50 p-b-50">
-                        <img class="img-fluid rounded mx-auto d-block" src="{{asset('img/Aceros y molduras logo.png')}}" alt="logo">
+                    <div class="container card bg-light" style="padding-top: 30px; padding-bottom: 30px">
+                        <img class="img-fluid rounded mx-auto d-block" src="{{asset('img/Aceros y molduras logo.png')}}"
+                            alt="logo">
                         <br>
                         <form method="POST" action="{{ route('signin')}}">
                             {{ csrf_field() }}
