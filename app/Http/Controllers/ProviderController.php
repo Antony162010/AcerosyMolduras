@@ -52,7 +52,7 @@ class ProviderController extends Controller
     del proveedor al realizar una compra. */
     {
         $provider = DB::select('CALL sp_get_provider(?)', [$email]);
-        return view('layout.home')->with('provider', $provider); 
+        return $provider;//view('layout.home')->with('provider', $provider); 
     }
 
     /**

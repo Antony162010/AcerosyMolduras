@@ -22,7 +22,7 @@ class StoreHouseController extends Controller
     public function index()
     {
         /* Trae todos los productos según el almacén - Funciona */
-        $products = DB::select('CALL sp_warehouse_inventory(?)', ['SH001']);
+        $products = DB::select('CALL sp_get_warehouse_inventory(?)', ['SH001']);
         return view('storeHouse.index')->with('products', $products);
     }
 
