@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use DB;
 
 class StoreHouseController extends Controller
-{   
+{
     protected $storeHouseRepository;
 
-    public function __construct(StoreHouseRepository $storeHouseRepository){
+    public function __construct(StoreHouseRepository $storeHouseRepository)
+    {
         $this->storeHouseRepository = $storeHouseRepository;
     }
 
@@ -22,11 +23,12 @@ class StoreHouseController extends Controller
     public function index()
     {
         /* Trae todos los productos según el almacén - Funciona */
-        $products = DB::select('CALL sp_warehouse_inventory(?)', ['SH001']);
+        $products = DB::select('CALL sp_get_warehouse_inventory(?)', ['SH001']);
         return view('storeHouse.index')->with('products', $products);
     }
 
-    public function info(Request $request){
+    public function info(Request $request)
+    {
         /* Información de un producto por almacén. - Funciona*/
         return $this->storeHouseRepository->info($request);
     }
@@ -50,7 +52,8 @@ class StoreHouseController extends Controller
      */
     public function create()
     {
-        //return view('storeHouse.create');
+        $warehouses = DB::select('CALL sp_get_warehouses()');
+        return view('storeHouse.create')->with(['warehouses' => $warehouses]);
     }
 
     /**
@@ -70,9 +73,10 @@ class StoreHouseController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Provider $provider)
+    public function edit($id)
     {
-        //
+        $warehouse = DB::select('CALL sp_get_product(?)', [$id]);
+        return view('storeHouse.edit')->with(['warehouse' => $warehouse[0]]);
     }
 
     /**
@@ -98,6 +102,9 @@ class StoreHouseController extends Controller
         //
     }
 
-    
-
+    public function productsByWarehouse(Request $request)
+    {
+        $products = DB::select('CALL sp_get_products_avaliable_by_warehouse(?)', [$request->idWarehouse]);
+        return json_encode($products);
+    }
 }

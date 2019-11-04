@@ -25,12 +25,12 @@ Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController
 Route::group(['prefix' => 'store_house'], function () {
     Route::get('/', ['as' => 'store_house.index', 'uses' => 'StoreHouseController@index']);
     Route::get('/create', ['as' => 'store_house.create', 'uses' => 'StoreHouseController@create']);
-    Route::post('/save', ['as' => 'store_house.save', 'uses' => 'StoreHouseController@save']);
-    Route::put('/edit', ['as' => 'store_house.edit', 'uses' => 'StoreHouseController@edit']);
-    Route::get('/update', ['as' => 'store_house.update', 'uses' => 'StoreHouseController@update']);
+    Route::post('/', ['as' => 'store_house.store', 'uses' => 'StoreHouseController@store']);
+    Route::get('/{id}/edit', ['as' => 'store_house.edit', 'uses' => 'StoreHouseController@edit']);
+    Route::put('/update', ['as' => 'store_house.update', 'uses' => 'StoreHouseController@update']);
     Route::delete('/destroy', ['as' => 'store_house.destroy', 'uses' => 'StoreHouseController@destroy']);
     Route::post('/info', ['as' => 'store_house.info', 'uses' => 'StoreHouseController@info']);
-    Route::post('/store', ['as' => 'store_house.store', 'uses' => 'StoreHouseController@store']);
+    Route::post('/products', ['as' => 'store_house.products', 'uses' => 'StoreHouseController@productsByWarehouse']);
 }); 
 
 

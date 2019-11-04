@@ -14,9 +14,21 @@
     <br />
     <br />
     <h2>
-        Almacén 
+        Almacén
     </h2>
     <br />
+
+    <div class="row">
+        <div class="col-sm-4">Busque por fecha, por defecto la fecha acual:</div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3"><input type="text" class="datepicker text-center"
+                value="{{ date('d/m/Y',strtotime(now())) }}" required></div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1"><button type="button" class="btn btn-primary">Buscar</button></div>
+        <div class="col-sm-2"></div>
+    </div>
+    <br /><br />
+
     <table id="table_store_house" class="table table-striped">
         <thead class="table-style">
             <tr>
@@ -37,9 +49,9 @@
                 <td>{{$p->mark}}</td>
                 <td>{{$p->boxes_quantity}}</td>
                 <td>
-                    <a href={{ route( 'store_house.edit') }}>
+                    <a href={{ route( 'store_house.edit',$p->code) }}>
                         <button type="button" class="btn btn-primary">
-                            <i class="far fa-edit"></i>
+                            <em class="far fa-edit"></em>
                         </button>
                     </a>
                 </td>

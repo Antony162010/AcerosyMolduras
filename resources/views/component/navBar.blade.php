@@ -15,15 +15,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href={{ route('store_house.index') }}>
                     <em class="fas fa-warehouse m-r-4"></em> Almacén</a>
-            </li>&nbsp;
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" href={{ route('product.index') }}>
-                    <em class="fas fa-archive"></em> Productos</a>
-            </li>&nbsp;
+                    <em class="fas fa-archive m-r-4"></em> Productos</a>
+            </li>
             {{-- <li class="nav-item active">
                 <a class="nav-link" href={{ route('books') }}>
             <em class="fas fa-book m-r-4 "></em>Libros</a>
-            </li>&nbsp; --}}
+            </li> --}}
 
         </ul>
 
