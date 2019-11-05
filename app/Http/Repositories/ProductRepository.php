@@ -10,7 +10,7 @@ class ProductRepository
 
 
     public $messages =  [
-        'id-product.required' => 'El campo id-product es necesario.'
+        'cod-product.required' => 'El campo id-product es necesario.'
     ];
 
     public function info($request) 
@@ -51,14 +51,14 @@ class ProductRepository
 
 
     public function store($request) 
-    {
+    { 
         try {
             $validator = Validator::make($request->all(), [
-                'cod_product' => 'required', 
-                'category_product' => 'required',
-                'price_product' => 'required', 
-                'brand_product' => 'required', 
-                'model_product' => 'required'
+                'cod-product' => 'required',
+                'category-product' => 'required',
+                'price-product' => 'required',
+                'brand-product' => 'required',
+                'model-product' => 'required'
             ], $this->messages);
 
             if ($validator->fails()) {
@@ -67,15 +67,16 @@ class ProductRepository
                     ->withInput();
             }
 
-            $codProduct = $request->input('cod_product');
-            $categoryProduct = $request->input('category_product');
-            $priceProduct = $request->input('price_product');
-            $brandProduct = $request->input('brand_product');
-            $modelProduct = $request->input('model_product');
+            $codProduct = $request->input('cod-product');
+            $categoryProduct = $request->input('category-product');
+            $priceProduct = $request->input('price-product');
+            $brandProduct = $request->input('brand-product');
+            $modelProduct = $request->input('model-product');
+            
             
             $response = DB::select('CALL sp_insert_product(?,?,?,?,?)', [
                 $codProduct,
-                $categoryProd,
+                $categoryProduct,
                 $priceProduct,
                 $brandProduct,
                 $modelProduct
@@ -90,6 +91,49 @@ class ProductRepository
             return back()
                 ->withErrors($ex->getMessage())
                 ->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        try
+        {
+            $response = DB::select('CALL sp_delete_product(?)', [
+                $id
+            ]);
+
+            if ($response) {
+                return redirect('product')->with('successMsg', 'Se registro el producto exitosamente.');
+            } else {
+                return redirect('')->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
+            }
+
+        } catch (\Exception $ex) {
+        return back()
+            ->withErrors($ex->getMessage())
+            ->withInput();
+        }
+    }
+
+    public function editPrice($id,$price)
+    {
+        try
+        {
+            $response = DB::select('CALL sp_update_price_product(?,?)', [
+                $id,
+                $price
+            ]);
+
+            if ($response) {
+                return redirect('product')->with('successMsg', 'Se actualizo el producto exitosamente.');
+            } else {
+                return redirect('')->with('errorMsg', 'Error al actualizar el producto.'); // 0 o 2, 
+            }
+
+        } catch (\Exception $ex) {
+        return back()
+            ->withErrors($ex->getMessage())
+            ->withInput();
         }
     }
 }

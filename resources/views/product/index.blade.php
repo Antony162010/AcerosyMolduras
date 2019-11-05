@@ -21,10 +21,10 @@
         <thead class="table-style">
             <tr>
                 <th scope="col">Código</th>
+                <th scope="col">Categoría</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Fecha</th>
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
@@ -32,16 +32,23 @@
             @foreach ($products as $p)
             <tr>
                 <td>{{$p->code}}</td>
+                <td>{{$p->name}}</td>
                 <td>{{$p->mark}}</td>
                 <td>{{$p->model}}</td>
                 <td>{{$p->price}}</td>
-                <td>{{$p->date}}</td>
                 <td>
-                    <a href={{ route( 'product.edit') }}>
-                        <button type="button" class="btn btn-primary">
-                            <i class="far fa-edit"></i>
+                    <form method="post" action="{{ url('/product/destroy/'.$p->code )}}">
+                        <a href={{ route( 'product.edit') }}>
+                            <button type="button" class="btn btn-primary">
+                                <i class="far fa-edit"></i>
+                            </button>
+                        </a>    
+                         {{ csrf_field()}}
+                        {{ method_field('DELETE')}}
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-trash"></i>
                         </button>
-                    </a>
+                    </form>
                 </td>
             </tr>
             @endforeach

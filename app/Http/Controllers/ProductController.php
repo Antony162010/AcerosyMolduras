@@ -29,31 +29,21 @@ class ProductController extends Controller
     }
 
     
-    public function save(Request $request)
+    public function store(Request $request)
     {
         return $this->productRepository->store($request);
     }
 
-    
-    public function show(Provider $provider)
-    {
-        //
-    }
 
-    public function edit(Provider $provider)
+    public function edit($id,$price)
     {
-        //
+        return $this->productRepository->editPrice($id,$price);
     }
 
     
-    public function update(Request $request, Provider $provider)
-    {
-        //
-    }
 
-    
-    public function destroy(Provider $provider)
+    public function destroy($id)
     {
-        //
+        return $this->productRepository->destroy($id);
     }
 }
