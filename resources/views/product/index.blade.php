@@ -21,30 +21,30 @@
         <thead class="table-style">
             <tr>
                 <th scope="col">Código</th>
-                <th scope="col">Título</th>
-                <th scope="col">Estado</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($books as $book) --}}
+            @foreach ($products as $p)
             <tr>
-                <td></td>
-                <td></td>
+                <td>{{$p->code}}</td>
+                <td>{{$p->mark}}</td>
+                <td>{{$p->model}}</td>
+                <td>{{$p->price}}</td>
+                <td>{{$p->date}}</td>
                 <td>
-                    {{-- <button type="button" class="btn round-btn btn-danger btn-disabled-book">
-                        Deshabilitado
-                    </button> --}}
-                </td>
-                <td>
-                    <a {{-- href={{ route( 'books.edit') }} --}}>
+                    <a href={{ route( 'product.edit') }}>
                         <button type="button" class="btn btn-primary">
                             <i class="far fa-edit"></i>
                         </button>
                     </a>
                 </td>
             </tr>
-            {{-- @endforeach --}}
+            @endforeach
         </tbody>
     </table>
 </div>
