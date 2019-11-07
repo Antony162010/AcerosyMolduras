@@ -31,7 +31,7 @@ class SaleRepository
             $prodQuantity = $request->input('prod-quantity');
             $prodPrice = $request->input('prod-price');
 
-            //Variables que guardarán una cadena de texto de los ids y cantidades.
+            //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
             $arrayId = '';
             $arrayQty = '';
             $arrayPrice = '';
@@ -39,23 +39,24 @@ class SaleRepository
             if (sizeof($idProduct) == sizeof($prodQuantity)) { //Si las tres cadenas son iguales 
                 if (sizeof($idProduct) == sizeof($prodPrice)) {
                     if (sizeof($prodQuantity) == sizeof($prodPrice)) {
-                        
-                         //Me manda un array de ids y las paso a string concatenandolas (1;2;3;4)
+
+                        /*Me manda un array de ids y las paso a string concatenandolas (1;2;3;4) 
+                        $idProduct es todo el array [1,2,3] y $id es un elemento de este -> 1 */
                         foreach ($idProduct as $id) { //Recibo [1,2,3]
                             $arrayId = $arrayId . ';' . $id; //Se vuelve '1;2;3' (string)
                         }
 
-                        
+
                         foreach ($prodQuantity as $prodQty) { //Recibo [20;30;40]
-                            $arrayQty = $arrayQty . ';' . $prodQty;
+                            $arrayQty = $arrayQty . ';' . $prodQty; //Se vuelve '20;30;40' (string)
                         }
 
                         foreach ($prodPrice as $prodPce) { //Recibo [40;50;60]
-                            $arrayPrice = $arrayPrice . ';' . $prodPce; 
+                            $arrayPrice = $arrayPrice . ';' . $prodPce;
                         }
 
                         $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?)", [
-                            $arrayId,
+                            $arrayId, 
                             $arrayQty,
                             $arrayPrice //En la db estos strings se separan segun el ';' y se insertan.
                         ]);
@@ -67,6 +68,8 @@ class SaleRepository
                         }
                     }
                 }
+
+                /* Problema a solucionar: inserta una fila de puros vacios porque concatena '';1;2;3 */
             } else {
 
                 return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
