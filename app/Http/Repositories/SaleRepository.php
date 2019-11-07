@@ -16,7 +16,8 @@ class SaleRepository
 
             $validator = Validator::make($request->all(), [
                 'id-product' => 'required',
-                'prod-quantity' => 'required'
+                'prod-quantity' => 'required',
+                'prod-price' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -28,36 +29,47 @@ class SaleRepository
             //Arrays que se reciben desde la vista (ids y cantidades)
             $idProduct = $request->input('id-product');
             $prodQuantity = $request->input('prod-quantity');
+            $prodPrice = $request->input('prod-price');
 
             //Variables que guardarán una cadena de texto de los ids y cantidades.
             $arrayId = '';
             $arrayQty = '';
+            $arrayPrice = '';
 
-            if (sizeof($idProduct) == sizeof($prodQuantity)) {
+            if (sizeof($idProduct) == sizeof($prodQuantity)) { //Si las tres cadenas son iguales 
+                if (sizeof($idProduct) == sizeof($prodPrice)) {
+                    if (sizeof($prodQuantity) == sizeof($prodPrice)) {
+                        
+                         //Me manda un array de ids y las paso a string concatenandolas (1;2;3;4)
+                        foreach ($idProduct as $id) { //Recibo [1,2,3]
+                            $arrayId = $arrayId . ';' . $id; //Se vuelve '1;2;3' (string)
+                        }
 
-                //Cadena de id de productos
-                foreach ($idProduct as $id) {
-                    $arrayId = $arrayId . ';' . $id;
-                }
+                        
+                        foreach ($prodQuantity as $prodQty) { //Recibo [20;30;40]
+                            $arrayQty = $arrayQty . ';' . $prodQty;
+                        }
 
-                //Cadena de texto de cantidad de producto
-                foreach ($prodQuantity as $prodQty) {
-                    $arrayQty = $arrayQty . ';' . $prodQty;
-                }
+                        foreach ($prodPrice as $prodPce) { //Recibo [40;50;60]
+                            $arrayPrice = $arrayPrice . ';' . $prodPce; 
+                        }
 
-                $response = DB::select("CALL sp_insert_product_has_sale(?)", [
-                    $arrayId,
-                    $arrayQty
-                ]);
+                        $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?)", [
+                            $arrayId,
+                            $arrayQty,
+                            $arrayPrice //En la db estos strings se separan segun el ';' y se insertan.
+                        ]);
 
-                if ($response[0]->response) {
-                    return redirect('sale')->with('successMsg', 'Venta registrada.');
-                } else {
-                    return redirect('sale')->with('errorMsg', 'Error al registrar la venta.');
+                        if ($response[0]->response) {
+                            return redirect('store_house')->with('successMsg', 'Venta registrada.');
+                        } else {
+                            return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
+                        }
+                    }
                 }
             } else {
 
-                return redirect('sale')->with('errorMsg', 'Error al registrar la venta.');
+                return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -97,17 +109,16 @@ class SaleRepository
                     'admin' => json_encode($adminData)
                 ]);
             } else {
-                return view('sale')->with(['sale' => [], 'admin' => [] ]);
+                return view('sale')->with(['sale' => [], 'admin' => []]);
             }
-
         } catch (Exception $e) {
             dd($e->getMessage());
             return view('error.internalServelError');
         }
     }
 
-    
-            /*
+
+    /*
             1. Funcion para mostrar todas las ventas con sus productos respectivos por id de venta
             (idSale)
 
@@ -126,9 +137,4 @@ class SaleRepository
 
 
             */
-
-
 }
-
-
-

@@ -42,7 +42,9 @@ Route::group(['prefix' => 'provider'], function () {
 }); 
 
 
-
+Route::group(['prefix' => 'sale'], function () {
+    Route::post('/store', ['as' => 'sale.store', 'uses' => 'SaleController@store']);
+}); 
 
 
 

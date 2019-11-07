@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         'store_house/store',
         '/signin',
         'provider/{email}',
-        'provider/store'
+        'provider/store',
+        'sale/store'
     ];
 }

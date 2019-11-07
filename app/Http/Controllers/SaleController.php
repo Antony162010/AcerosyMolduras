@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\SaleRepository;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
