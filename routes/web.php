@@ -41,6 +41,16 @@ Route::group(['prefix' => 'provider'], function () {
     Route::post('/store', ['as' => 'provider.store', 'uses' => 'ProviderController@store']);
 }); 
 
+// Productos
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
+    Route::get('/create', ['as' => 'product.create', 'uses' => 'ProductController@create']);
+    Route::post('/save', ['as' => 'product.save', 'uses' => 'ProductController@save']);
+    Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
+    Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
+    Route::get('/update/{id}', ['as' => 'product.update', 'uses' => 'ProductController@update']);
+    Route::delete('/destroy/{id}', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
+});
 
 
 
@@ -53,15 +63,7 @@ Route::group(['middleware' => ['session']], function () {
     // Almacen
     
 
-    // Productos
-    Route::group(['prefix' => 'product'], function () {
-        Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
-        Route::get('/create', ['as' => 'product.create', 'uses' => 'ProductController@create']);
-        Route::post('/save', ['as' => 'product.save', 'uses' => 'ProductController@save']);
-        Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
-        Route::get('/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
-        Route::delete('/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
-    });
+    
 
     /* Cualquier ruta externa no funciona */
     Route::fallback(function () {

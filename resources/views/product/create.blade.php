@@ -11,12 +11,24 @@
                     <div class="container card bg-light p-t-50 p-r-50 p-l-50 p-b-50">
                         <h2>Registro de productos</h2>
                         <br>
-                        <form method="POST" action="{{ url('/enterproduct')}}">
+                        <form method="POST" action="{{ url('/product/store') }}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="cod_product">Código del producto:</label>
                                 <input type="text" name="cod-product" class="form-control" id="cod_product"
                                     placeholder="Ingrese el código del producto" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="category_product">Categoría:</label>
+                                <div>
+                                    <select name="category-product" class="form-control">
+                                        <option value="">Seleccione una categoría</option>
+                                        @foreach ($categories as $c)
+                                            <option value="{{ $c->idcategory }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <br>
                             <div class="form-group">
