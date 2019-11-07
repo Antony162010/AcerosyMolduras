@@ -100,7 +100,7 @@ class SaleRepository
 
         try {
             $validator = Validator::make($request->all(), [
-                'id-product' => 'required'
+                'id-sale' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -109,22 +109,28 @@ class SaleRepository
                     ->withInput();
             }
 
-            $idProduct = $request->input('id-product');
+            $idSale = $request->input('id-sale');
 
-            $response = DB::select("CALL sp_get_sale(?)", [
-                $idProduct
+            $response = DB::select("CALL demo_sp_get_product_has_sale(?)", [
+                $idSale
             ]);
 
             if (sizeof($response) > 0) {
-                $adminData = array([
-                    'name' => $response[0]->nameAdministrador
-                    /* Trae los datos del administrador que se repiten en un join*/
+                /* Trae los datos del administrador que se repiten en un join*/
+                $saleData = array([
+                    'id-sale' => $response[0]->idsale,
+                    'date' => $response[0]->date,
+                    'provider_email' => $response[0]->provider_email,
+                    'name' => $response[0]->name,
+                    'site' => $response[0]->district . ', ' .$response[0]->province . ', ' . $response[0]->department
                 ]);
 
-                return view('sale')->with([
+                return ([$saleData, $response]);
+                    
+                /*return view('sale')->with([
                     'sale' => json_encode($response),
                     'admin' => json_encode($adminData)
-                ]);
+                ]);*/
             } else {
                 return view('sale')->with(['sale' => [], 'admin' => []]);
             }

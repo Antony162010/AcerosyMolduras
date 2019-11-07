@@ -58,6 +58,7 @@ Route::group(['middleware' => ['session']], function () {
     //Sale
     Route::group(['prefix' => 'sale'], function () {
         Route::post('/store', ['as' => 'sale.store', 'uses' => 'SaleController@store']);
+        Route::post('/info', ['as' => 'sale.info', 'uses' => 'SaleController@info']);
     });
 
     /* Cualquier ruta externa no funciona */
