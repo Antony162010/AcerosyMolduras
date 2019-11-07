@@ -32,7 +32,7 @@ Route::group(['middleware' => ['session']], function () {
         Route::get('/create', ['as' => 'store_house.create', 'uses' => 'StoreHouseController@create']);
         Route::post('/', ['as' => 'store_house.store', 'uses' => 'StoreHouseController@store']);
         Route::get('/{id}/edit', ['as' => 'store_house.edit', 'uses' => 'StoreHouseController@edit']);
-        Route::put('/update', ['as' => 'store_house.update', 'uses' => 'StoreHouseController@update']);
+        Route::put('/', ['as' => 'store_house.update', 'uses' => 'StoreHouseController@update']);
         Route::delete('/destroy', ['as' => 'store_house.destroy', 'uses' => 'StoreHouseController@destroy']);
         Route::post('/info', ['as' => 'store_house.info', 'uses' => 'StoreHouseController@info']);
         Route::post('/products', ['as' => 'store_house.products', 'uses' => 'StoreHouseController@productsByWarehouse']);
@@ -52,13 +52,19 @@ Route::group(['middleware' => ['session']], function () {
         Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
         Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
         Route::get('/{id}/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
-        Route::delete('/destroy/{id}', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
+        Route::delete('/{id}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
     });
 
     //Sale
     Route::group(['prefix' => 'sale'], function () {
-        Route::post('/store', ['as' => 'sale.store', 'uses' => 'SaleController@store']);
-        Route::post('/info', ['as' => 'sale.info', 'uses' => 'SaleController@info']);
+        Route::get('/', ['as' => 'sale.index', 'uses' => 'SaleController@index']);
+        Route::get('/create', ['as' => 'sale.create', 'uses' => 'SaleController@create']);
+        Route::post('/', ['as' => 'sale.store', 'uses' => 'SaleController@store']);
+        Route::get('/{id}', ['as' => 'sale.show', 'uses' => 'SaleController@show']); //info
+        Route::delete('/{id}', ['as' => 'sale.destroy', 'uses' => 'SaleController@destroy']);
+        Route::post('/provinces', ['as' => 'sale.provinces', 'uses' => 'SaleController@getProvinces']);
+        Route::post('/districts', ['as' => 'sale.districts', 'uses' => 'SaleController@getDistricts']);
+        Route::post('/products', ['as' => 'sale.products', 'uses' => 'SaleController@getProducts']);
     });
 
     /* Cualquier ruta externa no funciona */

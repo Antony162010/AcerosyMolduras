@@ -22,6 +22,7 @@ class AdminRepository
             // dd($response);
             if (sizeof($response) > 0) {
                 $_SESSION['user_session'] = array(
+                    "user_id" => $response[0]->idadministrator,
                     "user_name" => $response[0]->name,
                     "user_email" => $response[0]->username
                 );

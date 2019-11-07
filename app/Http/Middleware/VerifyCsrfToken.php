@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
         'provider/{email}',
         'provider/store',
         'sale/store',
-        'sale/info'
+        'sale/provinces',
+        'sale/districts',
+        'sale/products'
     ];
 }

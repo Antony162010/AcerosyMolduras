@@ -1,5 +1,5 @@
 <div class="container card bg-light space-div">
-    <form method="POST" @if ( $type=='update' ) action="{{ route($route,$routeId) }}" @else action="{{ route($route) }}"
+    <form method="POST" @if ( $type=='update' ) action="{{ route($route) }}" @else action="{{ route($route) }}"
         @endif>
         {{ csrf_field() }}
         @if ( $type == 'update')
