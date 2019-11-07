@@ -1,54 +1,41 @@
 @extends('layout.app')
 
 {{-- Header --}}
-@section('title', 'Productos | ')
+@section('title', 'Ventas | ')
 @section('scripts')
-<script type="text/javascript" src="{{ asset('js/productIndex.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/ventaIndex.js') }}"></script>
 @endsection
 @section('assets')
-{{-- <link href="{{ asset('css/home.css') }}" rel="stylesheet"> --}}
+<link href="{{ asset('css/venta.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
 <div class="container">
     <br />
     <br />
-    <h2>
-        Productos 
-    </h2>
+    <h2> Ventas </h2>
     <br />
-    <table id="table_product" class="table table-striped">
+    <table id="table_sale" class="table table-striped">
         <thead class="table-style">
             <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Categoría</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Precio</th>
+                <th scope="col">id</th>
+                <th scope="col">Distrito</th>
+                <th scope="col">Fecha</th>
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($products as $p)
+            @foreach ($sales as $s)
             <tr>
-                <td>{{$p->code}}</td>
-                <td>{{$p->name}}</td>
-                <td>{{$p->mark}}</td>
-                <td>{{$p->model}}</td>
-                <td>{{$p->price}}</td>
+                <td>{{$s->idsale}}</td>
+                <td>{{$s->name}}</td>
+                <td>{{$s->date}}</td>
                 <td>
-                    <form method="post" action="{{ route('product.destroy'.$p->code )}}">
-                        <a href={{ route( 'product.update',$p->code) }}>
-                            <button type="button" class="btn btn-primary">
-                                <i class="far fa-edit"></i>
-                            </button>
-                        </a>    
-                         {{ csrf_field()}}
-                        {{ method_field('DELETE')}}
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-trash"></i>
+                    <a href={{ route('sale.destroy',$s->idsale )}}>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-trash"></i>
                         </button>
-                    </form>
+                    </a>
                 </td>
             </tr>
             @endforeach

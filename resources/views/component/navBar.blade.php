@@ -20,10 +20,10 @@
                 <a class="nav-link" href={{ route('product.index') }}>
                     <em class="fas fa-archive m-r-4"></em> Productos</a>
             </li>
-            {{-- <li class="nav-item active">
-                <a class="nav-link" href={{ route('books') }}>
-            <em class="fas fa-book m-r-4 "></em>Libros</a>
-            </li> --}}
+            <li class="nav-item active">
+                <a class="nav-link" href={{ route('sale.index') }}>
+                    <em class="fas fa-cart-arrow-down m-r-4 "></em>Ventas</a>
+            </li>
 
         </ul>
 
