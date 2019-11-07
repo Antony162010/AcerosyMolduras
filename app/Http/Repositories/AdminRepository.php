@@ -28,7 +28,7 @@ class AdminRepository
                 return \redirect()->route('home')->with(['user' => $response[0]]);
             } else {
                 return redirect()
-                    ->route('user.signinView')
+                    ->route('login')
                     ->withErrors('Usuario y/o contraseña incorrecta')
                     ->withInput();
             }

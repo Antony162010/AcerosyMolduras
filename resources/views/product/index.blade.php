@@ -38,7 +38,7 @@
                 <td>{{$p->price}}</td>
                 <td>
                     <form method="post" action="{{ url('/product/destroy/'.$p->code )}}">
-                        <a href={{ route( 'product.edit') }}>
+                        <a href={{ route( 'product.update',$p->code) }}>
                             <button type="button" class="btn btn-primary">
                                 <i class="far fa-edit"></i>
                             </button>

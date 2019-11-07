@@ -115,10 +115,24 @@ class ProductRepository
         }
     }
 
-    public function editPrice($id,$price)
+    public function editPrice($request)
     {
         try
         {
+            $validator = Validator::make($request->all(), [
+                'cod-product' => 'required',
+                'price-product' => 'required',
+            ], $this->messages);
+
+            if ($validator->fails()) {
+                return redirect(route('product.index'))
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $id = $request->input('cod-product');
+            $price = $request->input('price-product');
+
             $response = DB::select('CALL sp_update_price_product(?,?)', [
                 $id,
                 $price

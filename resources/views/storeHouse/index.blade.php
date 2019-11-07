@@ -49,7 +49,7 @@
                 <td>{{$p->mark}}</td>
                 <td>{{$p->boxes_quantity}}</td>
                 <td>
-                    <a href={{ route( 'store_house.edit',$p->code) }}>
+                    <a href={{ route( 'store_house.edit',$warehouseId.';'.$p->code) }}>
                         <button type="button" class="btn btn-primary">
                             <em class="far fa-edit"></em>
                         </button>

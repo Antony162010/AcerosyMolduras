@@ -24,7 +24,7 @@ class StoreHouseController extends Controller
     {
         /* Trae todos los productos según el almacén - Funciona */
         $products = DB::select('CALL sp_get_warehouse_inventory(?)', ['SH001']);
-        return view('storeHouse.index')->with('products', $products);
+        return view('storeHouse.index')->with(['products' => $products, 'warehouseId' => 'SH001']);
     }
 
     public function info(Request $request)
@@ -75,7 +75,8 @@ class StoreHouseController extends Controller
      */
     public function edit($id)
     {
-        $warehouse = DB::select('CALL sp_get_product(?)', [$id]);
+        $arr = explode(';', $id);
+        $warehouse = DB::select('CALL sp_get_product_inventory(?,?)', [$arr[1], $arr[0]]);
         return view('storeHouse.edit')->with(['warehouse' => $warehouse[0]]);
     }
 

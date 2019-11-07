@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 {{-- Header --}}
-@section('title', 'Añadir | ')
+@section('title', 'Almacén | ')
 @section('scripts')
 <script type="text/javascript" src="{{ asset('js/storeHouseForm.js') }}"></script>
 @endsection
