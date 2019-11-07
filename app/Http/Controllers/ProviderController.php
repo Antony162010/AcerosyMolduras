@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\ProviderRepository;
 use App\Provider;
 use Illuminate\Http\Request;
+use DB;
+
 
 class ProviderController extends Controller
-{
+{   
+
+    protected $providerRepository;
+
+    public function __construct(ProviderRepository $providerRepository){
+        $this->providerRepository = $providerRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,18 +44,15 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->providerRepository->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Provider  $provider
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Provider $provider)
+    
+    public function show($email) /* Muestra proveedor según email, usado para insertar los datos
+    del proveedor al realizar una compra. */
     {
-        //
+        $provider = DB::select('CALL sp_get_provider(?)', [$email]);
+        return $provider;//view('layout.home')->with('provider', $provider); 
     }
 
     /**

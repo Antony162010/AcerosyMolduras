@@ -22,6 +22,8 @@ Route::get('/products', ['as' => 'productos.index', 'uses' => 'ProductController
 
 
 /* Puesto aquí para que no de problemas con el session, por ahora. */
+
+// Almacen
 Route::group(['prefix' => 'store_house'], function () {
     Route::get('/', ['as' => 'store_house.index', 'uses' => 'StoreHouseController@index']);
     Route::get('/create', ['as' => 'store_house.create', 'uses' => 'StoreHouseController@create']);
@@ -32,6 +34,16 @@ Route::group(['prefix' => 'store_house'], function () {
     Route::post('/info', ['as' => 'store_house.info', 'uses' => 'StoreHouseController@info']);
     Route::post('/products', ['as' => 'store_house.products', 'uses' => 'StoreHouseController@productsByWarehouse']);
 }); 
+
+//Proveedor
+Route::group(['prefix' => 'provider'], function () {
+    Route::get('/{email}', ['as' => 'provider.show', 'uses' => 'ProviderController@show']);
+    Route::post('/store', ['as' => 'provider.store', 'uses' => 'ProviderController@store']);
+}); 
+
+
+
+
 
 
 Route::group(['middleware' => ['session']], function () {
