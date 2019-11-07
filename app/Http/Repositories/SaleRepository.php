@@ -71,7 +71,7 @@ class SaleRepository
                             $arrayPrice, //En la db estos strings se separan segun el ';' y se insertan.
                             $idAdmin,
                             $district
-                        ]);
+                        ]);   
 
                         if ($response[0]->response) {
                             return redirect(route('sale.index'))->with('successMsg', 'Venta registrada.');
