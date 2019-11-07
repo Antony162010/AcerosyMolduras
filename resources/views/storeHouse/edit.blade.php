@@ -19,7 +19,6 @@
 @component('component.formStoreHouse', [
 'type' => 'update',
 'route' => 'store_house.update',
-'routeId' => $warehouse->code,
 'warehouse' => $warehouse ])
 @endcomponent
 

@@ -10,6 +10,13 @@
 @endsection
 
 @section('content')
+<br>
+@if(Session::has('successMsg'))
+<div class="alert alert-success" id="success-alert">
+    <button type="button" class="close" data-dismiss="alert">x</button> {{ Session::get('successMsg') }}
+</div>
+@endif
+
 <div class="container">
     <br />
     <br />
@@ -31,6 +38,11 @@
                 <td>{{$s->name}}</td>
                 <td>{{$s->date}}</td>
                 <td>
+                    <a href={{ route('sale.show',$s->idsale )}}>
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </a>
                     <a href={{ route('sale.destroy',$s->idsale )}}>
                         <button type="button" class="btn btn-primary">
                             <i class="fas fa-trash"></i>

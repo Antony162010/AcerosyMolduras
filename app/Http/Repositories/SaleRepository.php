@@ -93,48 +93,35 @@ class SaleRepository
     }
 
 
-    public function info($request)
+    public function show($id)
     {
+        $response = DB::select("CALL demo_sp_get_product_has_sale(?)", [
+            $id
+        ]);
 
-        try {
-            $validator = Validator::make($request->all(), [
-                'id-sale' => 'required'
+        $departments = DB::select('CALL sp_get_departments()');
+        if (sizeof($response) > 0) {
+            /* Trae los datos del administrador que se repiten en un join*/
+            $saleData = array([
+                'id_sale' => $response[0]->idsale,
+                'department' => $response[0]->iddepar,
+                'idProv' => $response[0]->idProv,
+                'province' => $response[0]->province,
+                'iddistrict' => $response[0]->iddistrict,
+                'district' => $response[0]->district,
+                'date' => $response[0]->date,
+                'provider_email' => $response[0]->provider_email,
+                'name' => $response[0]->name,
+                'site' => $response[0]->district . ', ' . $response[0]->province . ', ' . $response[0]->department
             ]);
 
-            if ($validator->fails()) {
-                return redirect('home')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-
-            $idSale = $request->input('id-sale');
-
-            $response = DB::select("CALL demo_sp_get_product_has_sale(?)", [
-                $idSale
+            return view('sale.info')->with([
+                'products' => $response,
+                'sale' => $saleData[0],
+                'departments' => $departments
             ]);
-
-            if (sizeof($response) > 0) {
-                /* Trae los datos del administrador que se repiten en un join*/
-                $saleData = array([
-                    'id-sale' => $response[0]->idsale,
-                    'date' => $response[0]->date,
-                    'provider_email' => $response[0]->provider_email,
-                    'name' => $response[0]->name,
-                    'site' => $response[0]->district . ', ' .$response[0]->province . ', ' . $response[0]->department
-                ]);
-
-                return ([$saleData, $response]);
-                    
-                /*return view('sale')->with([
-                    'sale' => json_encode($response),
-                    'admin' => json_encode($adminData)
-                ]);*/
-            } else {
-                return view('sale')->with(['sale' => [], 'admin' => []]);
-            }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-            return view('error.internalServelError');
+        } else {
+            return view('sale.info')->with(['sale' => [], 'products' => [], 'departments' => $departments]);
         }
     }
 
