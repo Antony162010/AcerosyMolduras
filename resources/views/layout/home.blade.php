@@ -11,6 +11,20 @@
         <button type="button" class="close" data-dismiss="alert">x</button> {{ Session::get('successMsg') }}
     </div>
     @endif
+
+    <h3>¡Bienvenido!
+        <br><br></h3>
+    <h5>¿Qué deseas hacer primero?
+        <br><br></h5>
+    <p>
+        <a href={{ route('store_house.index') }} class="btn btn-sq-lg btn-light">
+                <em class="fas fa-warehouse fa-5x"></em><br />
+            Gestionar<br>Almacénes
+        </a>
+        <a href={{ route('product.index') }} class="btn btn-sq-lg btn-light">
+                <em class="fas fa-archive fa-5x"></em><br />
+            Gestionar<br>Productos
+        </a>
+    </p>
 </div>
-<h1>Home</h1>
 @endsection

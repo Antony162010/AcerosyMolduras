@@ -52,7 +52,7 @@ Route::group(['middleware' => ['session']], function () {
         Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
         Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
         Route::get('/{id}/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
-        Route::delete('/destroy/{id}', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
+        Route::delete('/{id}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
     });
 
     //Sale
