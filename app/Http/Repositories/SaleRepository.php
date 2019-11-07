@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Repositories;
+
 use Illuminate\Support\Str;
 
 use DB;
@@ -58,9 +59,9 @@ class SaleRepository
                             $arrayPrice = $arrayPrice . ';' . $prodPce;
                         }
 
-                        $arrayId = Str::replaceArray(';', [''], $arrayId); 
-                        $arrayQty = Str::replaceArray(';', [''], $arrayQty); 
-                        $arrayPrice = Str::replaceArray(';', [''], $arrayPrice); 
+                        $arrayId = Str::replaceArray(';', [''], $arrayId);
+                        $arrayQty = Str::replaceArray(';', [''], $arrayQty);
+                        $arrayPrice = Str::replaceArray(';', [''], $arrayPrice);
                         /*replaceArray recorre todo el string buscando ';', y de acuerdo a la cantidad
                         de cosas en el array, reemplaza. Como solo se tiene un objeto en el array,
                         lo reemplaza solo una vez. */
@@ -68,7 +69,7 @@ class SaleRepository
                         //dd($arrayId . ' ' . $arrayQty . ' ' . $arrayPrice);
 
                         $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?,?)", [
-                            $arrayId, 
+                            $arrayId,
                             $arrayQty,
                             $arrayPrice, //En la db estos strings se separan segun el ';' y se insertan.
                             $idAdmin
@@ -79,7 +80,6 @@ class SaleRepository
                         } else {
                             return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
                         }
-
                     }
                 }
 
@@ -135,6 +135,17 @@ class SaleRepository
     }
 
 
+    public function getProvinces($request)
+    {
+        $provinces = DB::select('CALL sp_get_provinces(?)', [$request->idDepartment]);
+        return json_encode($provinces);
+    }
+
+    public function getDistricts($request)
+    {
+        $districts = DB::select('CALL sp_get_districts(?)', [$request->idProvince]);
+        return json_encode($districts);
+    }
     /*
             1. Funcion para mostrar todas las ventas con sus productos respectivos por id de venta
             (idSale)

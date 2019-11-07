@@ -24,7 +24,10 @@ class SaleController extends Controller
 
     public function create()
     {
-        return view('sale.create');
+        $departments = DB::select('CALL sp_get_departments()');
+        return view('sale.create')->with([
+            'departments' => $departments
+        ]);
     }
 
     public function store(Request $request)
@@ -35,5 +38,15 @@ class SaleController extends Controller
     public function info(Request $request)
     {
         return $this->saleRepository->info($request);
+    }
+
+    public function getProvinces(Request $request)
+    {
+        return $this->saleRepository->getProvinces($request);
+    }
+
+    public function getDistricts(Request $request)
+    {
+        return $this->saleRepository->getDistricts($request);
     }
 }
