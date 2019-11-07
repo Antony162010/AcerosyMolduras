@@ -20,6 +20,7 @@ class VerifyCsrfToken extends Middleware
         'provider/store',
         'sale/store',
         'sale/provinces',
-        'sale/districts'
+        'sale/districts',
+        'sale/products'
     ];
 }

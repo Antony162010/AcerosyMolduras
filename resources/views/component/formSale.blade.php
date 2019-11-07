@@ -35,24 +35,11 @@
             </div>
         </div>
         <br>
-        <div class="form-group">
-            <label for="price_product">Precio:</label>
-            <input type="text" name="price-product" class="form-control" id="price_product"
-                placeholder="Ingrese precio base" required>
-        </div>
+        
+        <button type="button" id="add_product" class="btn btn-primary">Añadir producto</button>
         <br>
-        <div class="form-group">
-            <label for="brand_product">Marca:</label>
-            <input type="text" name="brand-product" class="form-control" id="brand_product"
-                placeholder="Ingrese marca del producto" required>
-        </div>
+        <div class="products"></div>
         <br>
-        <div class="form-group">
-            <label for="model_product">Modelo:</label>
-            <input type="text" name="model-product" class="form-control" id="model_product"
-                placeholder="Ingrese modelo del producto" required>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Registrar producto</button>
+        <button type="submit" class="btn btn-primary">Registrar venta</button>
     </form>
 </div>

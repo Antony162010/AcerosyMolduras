@@ -40,6 +40,11 @@ class SaleController extends Controller
         return $this->saleRepository->info($request);
     }
 
+    public function getProducts(Request $request)
+    {
+        return $this->saleRepository->getProducts($request);
+    }
+
     public function getProvinces(Request $request)
     {
         return $this->saleRepository->getProvinces($request);

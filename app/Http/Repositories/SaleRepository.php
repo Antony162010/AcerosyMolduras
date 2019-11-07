@@ -10,30 +10,27 @@ use Validator;
 class SaleRepository
 {
 
-
-
     public function store($request)
     {
         try {
-
             $validator = Validator::make($request->all(), [
-                'id-product' => 'required',
-                'prod-quantity' => 'required',
-                'prod-price' => 'required',
-                'id-admin' => 'required'
+                'idproduct' => 'required',
+                'prodquantity' => 'required',
+                'prodprice' => 'required'
             ]);
 
             if ($validator->fails()) {
-                return redirect('home')
+                return redirect(route('sale.create'))
                     ->withErrors($validator)
                     ->withInput();
             }
 
             //Arrays que se reciben desde la vista (ids y cantidades)
-            $idProduct = $request->input('id-product');
-            $prodQuantity = $request->input('prod-quantity');
-            $prodPrice = $request->input('prod-price');
-            $idAdmin = $request->input('id-admin');
+            $district = $request->input('district');
+            $idProduct = $request->input('idproduct');
+            $prodQuantity = $request->input('prodquantity');
+            $prodPrice = $request->input('prodprice');
+            $idAdmin = $_SESSION['user_session']['user_id'];
 
             //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
             $arrayId = '';
@@ -68,17 +65,18 @@ class SaleRepository
 
                         //dd($arrayId . ' ' . $arrayQty . ' ' . $arrayPrice);
 
-                        $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?,?)", [
+                        $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?,?,?)", [
                             $arrayId,
                             $arrayQty,
                             $arrayPrice, //En la db estos strings se separan segun el ';' y se insertan.
-                            $idAdmin
+                            $idAdmin,
+                            $district
                         ]);
 
                         if ($response[0]->response) {
-                            return redirect('store_house')->with('successMsg', 'Venta registrada.');
+                            return redirect(route('sale.index'))->with('successMsg', 'Venta registrada.');
                         } else {
-                            return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
+                            return redirect(route('sale.index'))->with('errorMsg', 'Error al registrar la venta.');
                         }
                     }
                 }
@@ -86,7 +84,7 @@ class SaleRepository
                 /* Problema a solucionar: inserta una fila de puros vacios porque concatena '';1;2;3 */
             } else {
 
-                return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
+                return redirect(route('sale.index'))->with('errorMsg', 'Error al registrar la venta.');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -134,6 +132,12 @@ class SaleRepository
         }
     }
 
+
+    public function getProducts($request)
+    {
+        $products = DB::select('CALL sp_get_products()');
+        return json_encode($products);
+    }
 
     public function getProvinces($request)
     {

@@ -9,7 +9,7 @@ var config = {
 
     "buttons": [
         {
-            "text": "Registar nueva venta",
+            "text": "Registrar Nueva venta",
             "attr": {
                 class: "btn btn-primary",
                 onclick: "window.location='./sale/create'"

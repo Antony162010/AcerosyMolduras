@@ -3,10 +3,10 @@
 {{-- Header --}}
 @section('title', 'Ventas | ')
 @section('scripts')
-<script type="text/javascript" src="{{ asset('js/ventaIndex.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/saleIndex.js') }}"></script>
 @endsection
 @section('assets')
-<link href="{{ asset('css/venta.css') }}" rel="stylesheet">
+<link href="{{ asset('css/sale.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

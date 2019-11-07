@@ -64,6 +64,7 @@ Route::group(['middleware' => ['session']], function () {
         Route::delete('/{id}', ['as' => 'sale.destroy', 'uses' => 'SaleController@destroy']);
         Route::post('/provinces', ['as' => 'sale.provinces', 'uses' => 'SaleController@getProvinces']);
         Route::post('/districts', ['as' => 'sale.districts', 'uses' => 'SaleController@getDistricts']);
+        Route::post('/products', ['as' => 'sale.products', 'uses' => 'SaleController@getProducts']);
     });
 
     /* Cualquier ruta externa no funciona */
