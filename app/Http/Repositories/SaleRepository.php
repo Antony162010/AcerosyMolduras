@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Repositories;
+use Illuminate\Support\Str;
 
 use DB;
 use Validator;
@@ -17,7 +18,8 @@ class SaleRepository
             $validator = Validator::make($request->all(), [
                 'id-product' => 'required',
                 'prod-quantity' => 'required',
-                'prod-price' => 'required'
+                'prod-price' => 'required',
+                'id-admin' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -30,6 +32,7 @@ class SaleRepository
             $idProduct = $request->input('id-product');
             $prodQuantity = $request->input('prod-quantity');
             $prodPrice = $request->input('prod-price');
+            $idAdmin = $request->input('id-admin');
 
             //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
             $arrayId = '';
@@ -55,10 +58,20 @@ class SaleRepository
                             $arrayPrice = $arrayPrice . ';' . $prodPce;
                         }
 
-                        $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?)", [
+                        $arrayId = Str::replaceArray(';', [''], $arrayId); 
+                        $arrayQty = Str::replaceArray(';', [''], $arrayQty); 
+                        $arrayPrice = Str::replaceArray(';', [''], $arrayPrice); 
+                        /*replaceArray recorre todo el string buscando ';', y de acuerdo a la cantidad
+                        de cosas en el array, reemplaza. Como solo se tiene un objeto en el array,
+                        lo reemplaza solo una vez. */
+
+                        //dd($arrayId . ' ' . $arrayQty . ' ' . $arrayPrice);
+
+                        $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?,?)", [
                             $arrayId, 
                             $arrayQty,
-                            $arrayPrice //En la db estos strings se separan segun el ';' y se insertan.
+                            $arrayPrice, //En la db estos strings se separan segun el ';' y se insertan.
+                            $idAdmin
                         ]);
 
                         if ($response[0]->response) {
@@ -66,6 +79,7 @@ class SaleRepository
                         } else {
                             return redirect('store_house')->with('errorMsg', 'Error al registrar la venta.');
                         }
+
                     }
                 }
 
