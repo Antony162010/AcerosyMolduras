@@ -87,9 +87,9 @@ class StoreHouseController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provider $provider)
+    public function update(Request $request)
     {
-        //
+        return $this->storeHouseRepository->update($request);
     }
 
     /**

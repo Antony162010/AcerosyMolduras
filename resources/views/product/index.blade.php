@@ -10,6 +10,13 @@
 @endsection
 
 @section('content')
+<br>
+@if(Session::has('successMsg'))
+<div class="alert alert-success" id="success-alert">
+    <button type="button" class="close" data-dismiss="alert">x</button> {{ Session::get('successMsg') }}
+</div>
+@endif
+
 <div class="container">
     <br />
     <br />

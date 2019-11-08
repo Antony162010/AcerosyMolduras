@@ -60,7 +60,7 @@ class StoreHouseRepository
             ], $this->messages);
 
             if ($validator->fails()) {
-                return redirect('home')
+                return redirect(route('store_house.create'))
                     ->withErrors($validator)
                     ->withInput();
             }
@@ -76,9 +76,46 @@ class StoreHouseRepository
             ]);
 
             if ($response) {
-                return redirect('store_house')->with('successMsg', 'Se guardo el producto en almacén.');
+                return redirect(route('store_house.index'))->with('successMsg', 'Se guardo el producto en almacén.');
             } else {
-                return redirect('')->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
+                return redirect(route('store_house.create'))->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
+            }
+        } catch (\Exception $ex) {
+            return back()
+                ->withErrors($ex->getMessage())
+                ->withInput();
+        }
+    }
+
+    public function update($request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'id-warehouse' => 'required', //idstore_house
+                'id-product' => 'required', //idproduct
+                'boxes-quantity' => 'required', //boxes_quantity
+            ], $this->messages);
+
+            if ($validator->fails()) {
+                return redirect(route('store_house.update'))
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $idWarehouse = $request->input('id-warehouse');
+            $idProduct = $request->input('id-product');
+            $boxesQuantity = $request->input('boxes-quantity');
+
+            $response = DB::select('CALL sp_update_product_warehouse(?,?,?)', [
+                $boxesQuantity,
+                $idWarehouse,
+                $idProduct
+            ]);
+
+            if ($response[0]->response) {
+                return redirect(route('store_house.index'))->with('successMsg', 'Se actualizo el producto exitosamente.');
+            } else {
+                return redirect(route('store_house.update'))->with('errorMsg', 'Error al actualizar el producto.'); // 0 o 2, 
             }
         } catch (\Exception $ex) {
             return back()

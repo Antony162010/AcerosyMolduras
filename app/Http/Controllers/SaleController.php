@@ -35,9 +35,9 @@ class SaleController extends Controller
         return $this->saleRepository->store($request);
     }
 
-    public function info(Request $request)
+    public function show($id)
     {
-        return $this->saleRepository->info($request);
+        return $this->saleRepository->show($id);
     }
 
     public function getProducts(Request $request)
