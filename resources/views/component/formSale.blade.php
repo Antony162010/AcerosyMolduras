@@ -8,7 +8,7 @@
             <div class="form-group col-md-3">
                 <label for="department">Departamento:</label>
                 <div>
-                    <select id="department" class="form-control" required disabled>
+                    <select id="department" class="form-control" required @if ($type=='info' ) disabled @endif>
                         <option selected hidden value="">Seleccione el departamento</option>
                         @foreach ($departments as $d)
                         <option @if ($type=='info' && $d->iddepar == $sale['department']) selected @endif
@@ -20,7 +20,7 @@
             <div class="form-group col-md-4">
                 <label for="province">Provincia:</label>
                 <div>
-                    <select id="province" class="form-control" required disabled>
+                    <select id="province" class="form-control" required @if ($type=='info' ) disabled @endif>
                         <option selected hidden value="">Seleccione un departamento</option>
                         @if ($type == 'info' )<option selected value="{{$sale['idProv']}}">{{$sale['province']}}
                         </option>
@@ -31,7 +31,7 @@
             <div class="form-group col-md-5">
                 <label for="district">Distrito:</label>
                 <div>
-                    <select id="district" name="district" class="form-control" disabled>
+                    <select id="district" name="district" class="form-control" @if ($type=='info' ) disabled @endif>
                         <option selected hidden value="">Seleccione un departamento</option>
                         @if ($type == 'info' ) <option selected value="{{$sale['iddistrict']}}">{{$sale['district']}}
                         </option>

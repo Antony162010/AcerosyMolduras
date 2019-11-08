@@ -17,6 +17,18 @@
     </em>Realizar nueva venta
 </h2>
 <br />
+
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+<br>
+@endif
+
 @component('component.formSale', [
 'type' => 'insert',
 'route' => 'sale.store',
