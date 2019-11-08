@@ -16,6 +16,18 @@
     </em>Agregar producto al almacén
 </h2>
 <br />
+
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+<br>
+@endif
+
 @component('component.formStoreHouse', [
 'type' => 'insert',
 'route' => 'store_house.store',
