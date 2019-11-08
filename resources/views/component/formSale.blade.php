@@ -1,5 +1,5 @@
 <div class="container card bg-light p-t-50 p-r-50 p-l-50 p-b-50">
-    <form method="POST" @if ($type=='create' )action="{{ route($route) }}" @endif>
+    <form method="POST" @if ($type=='insert' )action="{{ route($route) }}" @endif>
         {{ csrf_field() }}
         @if ( $type == 'update')
         {{ method_field('PUT') }}
@@ -42,7 +42,7 @@
         </div>
         <br>
 
-        @if ($type == 'create')
+        @if ($type=='insert')
         <button type="button" id="add_product" class="btn btn-primary">Añadir producto</button>
         <br>
         <div class="products"></div>
