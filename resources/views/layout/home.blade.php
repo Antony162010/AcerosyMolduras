@@ -29,6 +29,10 @@
                 <em class="fas fa-cart-arrow-down fa-5x"></em><br />
             Gestionar<br>Ventas
         </a>
+        <a href={{ route('buy.index') }} class="btn btn-sq-lg btn-light">
+                <em class="fas fa-cart-plus fa-5x"></em><br />
+            Gestionar<br>Compras
+        </a>
     </p>
 </div>
 @endsection

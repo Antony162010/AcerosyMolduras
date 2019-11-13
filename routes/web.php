@@ -67,6 +67,17 @@ Route::group(['middleware' => ['session']], function () {
         Route::post('/products', ['as' => 'sale.products', 'uses' => 'SaleController@getProducts']);
     });
 
+    //Buy
+    Route::group(['prefix' => 'buy'], function () {
+        Route::get('/', ['as' => 'buy.index', 'uses' => 'BuyController@index']);
+        Route::get('/create', ['as' => 'buy.create', 'uses' => 'BuyController@create']);
+        Route::post('/', ['as' => 'buy.store', 'uses' => 'BuyController@store']);
+        Route::get('/{id}', ['as' => 'buy.show', 'uses' => 'BuyController@show']); //info
+        Route::delete('/{id}', ['as' => 'buy.destroy', 'uses' => 'BuyController@destroy']);
+        Route::post('/products', ['as' => 'buy.products', 'uses' => 'BuyController@getProducts']);
+    });
+
+
     /* Cualquier ruta externa no funciona */
     Route::fallback(function () {
         return view('error/notFound');
