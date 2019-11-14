@@ -42,10 +42,16 @@ class ProductController extends Controller
         return $this->productRepository->store($request);
     }
 
+    public function show($id)
+    {
+        $categories = DB::select('CALL sp_get_categories()');
+        $product = DB::select('CALL sp_get_product(?)', [$id]);
+        return view('product.info')->with(['categories' => $categories, 'product' => $product[0]]);
+    }
 
     public function edit(Request $request)
     {
-        return $this->productRepository->editPrice($request);
+        return $this->productRepository->edit($request);
     }
 
 
