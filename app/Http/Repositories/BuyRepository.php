@@ -120,6 +120,26 @@ class BuyRepository
         }
     }
 
+    public function destroy($id)
+    {
+        try
+        {
+            $response = DB::select('CALL sp_delete_buy(?)', [
+                $id
+            ]);
+
+            if ($response) {
+                return redirect('buy')->with('successMsg', 'Se elimino la compra exitosamente.');
+            } else {
+                return redirect('')->with('errorMsg', 'Error al eliminar la compra.'); // 0 o 2, 
+            }
+
+        } catch (\Exception $ex) {
+        return back()
+            ->withErrors($ex->getMessage())
+            ->withInput();
+        }
+    }
 
     public function getProducts($request)
     {

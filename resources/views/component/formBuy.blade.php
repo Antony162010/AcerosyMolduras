@@ -37,7 +37,7 @@
         <table id="table_sale_products" class="table table-striped">
             <thead class="table-style">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Id Compra</th>
                     <th scope="col">Producto</th>
                     <th scope="col">Precio(S/)</th>
                     <th scope="col">Cantidad</th>
@@ -48,7 +48,7 @@
                 @foreach ($products as $p)
                 <tr>
                     <th scope="row">{{$p->idbuy}}</th>
-                    <td>{{$p->mark}} - {{$p->model}}</td>
+                    <td>{{$p->idproduct}} - {{$p->mark}} - {{$p->model}}</td>
                     <td>{{$p->price}}</td>
                     <td>{{$p->quantity}}</td>
                     <td>S/{{$p->amount}}</td>

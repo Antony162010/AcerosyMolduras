@@ -45,4 +45,8 @@ class BuyController extends Controller
         return $this->buyRepository->getProducts($request);
     }
 
+    public function destroy($id)
+    {
+        return $this->buyRepository->destroy($id);
+    }
 }

@@ -42,16 +42,18 @@
                 <td>{{$p->date}}</td>
                 <td>{{$p->total}}</td>
                 <td>
-                    <a href={{ route('buy.show',$p->idbuy )}}>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-info-circle"></i>
+                    <form method="post" action="{{ route('buy.destroy',$p->idbuy ) }}">
+                        <a href={{ route('buy.show',$p->idbuy )}}>
+                            <button type="button" class="btn btn-primary">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </a> 
+                         {{ csrf_field()}}
+                        {{ method_field('DELETE')}}
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-trash"></i>
                         </button>
-                    </a>
-                    <a href={{ route('buy.destroy',$p->idbuy )}}>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </a>
+                    </form>
                 </td>
             </tr>
             @endforeach
