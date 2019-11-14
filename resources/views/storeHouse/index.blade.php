@@ -34,6 +34,13 @@
         <div class="col-sm-1"><button type="button" class="btn btn-primary">Buscar</button></div>
         <div class="col-sm-2"></div>
     </div>
+    <div class="row">
+        <a class="nav-link" href={{ route('store_house.catalog') }}>
+            <button type="button" class="btn btn-primary">
+                Generar Catálogo
+            </button>
+        </a>
+    </div>
     <br /><br />
 
     <table id="table_store_house" class="table table-striped">

@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use DB;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class StoreHouseRepository
@@ -122,5 +123,17 @@ class StoreHouseRepository
                 ->withErrors($ex->getMessage())
                 ->withInput();
         }
+    }
+
+    public function generatePdf($request)
+    {
+        // Mail::send('pdf.catalog', [], function ($mail) {
+            $pdf = \PDF::loadView('pdf.catalog');
+
+            // $mail->to('antonis162010@gmail.com')->subject('Titulo');
+            // $mail->from('_mainaccount@acerosymolduras.com', 'Aceros y Molduras');
+            // $mail->attachData($pdf->output(), 'Catálogo.pdf');
+            return $pdf->download('Catálogo.pdf');
+        // });
     }
 }

@@ -23,5 +23,6 @@ class VerifyCsrfToken extends Middleware
         'sale/districts',
         'sale/products',
         'buy/products',
+        'store_house/catalog'
     ];
 }
