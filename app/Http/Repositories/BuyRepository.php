@@ -31,7 +31,7 @@ class BuyRepository
             $idProduct = $request->input('idproduct');
             $prodQuantity = $request->input('prodquantity');
             $prodPrice = $request->input('prodprice');
-            $idAdmin = 1;
+            $idAdmin = $_SESSION['user_session']['user_id'];
 
             //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
             $arrayId = '';
