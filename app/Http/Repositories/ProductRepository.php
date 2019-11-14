@@ -103,9 +103,9 @@ class ProductRepository
             ]);
 
             if ($response) {
-                return redirect('product')->with('successMsg', 'Se registro el producto exitosamente.');
+                return redirect('product')->with('successMsg', 'Se elimino el producto exitosamente.');
             } else {
-                return redirect('')->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
+                return redirect('')->with('errorMsg', 'Error al eliminar el producto.'); // 0 o 2, 
             }
 
         } catch (\Exception $ex) {

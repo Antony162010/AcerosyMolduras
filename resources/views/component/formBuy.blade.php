@@ -11,7 +11,7 @@
                     <select id="provider" name="provider"  class="form-control" required @if ($type=='info' ) disabled @endif>
                         <option selected hidden value="">Seleccione el Proveedor</option>
                         @foreach ($providers as $p)
-                        <option @if ($type=='info' && $p->idprovider == $buy['provider']) selected @endif
+                        <option @if ($type=='info' && $p->idprovider == $buy['idprovider']) selected @endif
                             value="{{ $p->idprovider }}">{{ $p->name }}</option>
                         @endforeach
                     </select>

@@ -49,10 +49,11 @@ Route::group(['middleware' => ['session']], function () {
         Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
         Route::get('/create', ['as' => 'product.create', 'uses' => 'ProductController@create']);
         Route::post('/save', ['as' => 'product.save', 'uses' => 'ProductController@save']);
+        Route::get('/{id}', ['as' => 'product.show', 'uses' => 'ProductController@show']); //info
         Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
         Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
         Route::get('/{id}/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
-        Route::delete('/{id}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
+        Route::delete('/{id}', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
     });
 
     //Sale

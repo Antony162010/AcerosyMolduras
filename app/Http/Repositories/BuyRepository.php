@@ -104,7 +104,7 @@ class BuyRepository
             /* Trae los datos del administrador que se repiten en un join*/
             $buyData = array([
                 'idbuy' => $response[0]->idbuy,
-                'provider' => $response[0]->provider,
+                'idprovider' => $response[0]->idprovider,
                 'date' => $response[0]->date,
                 'administrator' => $response[0]->administrator,
                 'total' => $response[0]->total
