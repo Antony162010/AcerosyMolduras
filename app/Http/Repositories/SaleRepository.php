@@ -157,9 +157,6 @@ class SaleRepository
 
                     return view()->with(['obj'=> json_encode($obj)], 'msg'); //retorna objeto
                 }
-            
-            2.  
-
 
             */
 }
