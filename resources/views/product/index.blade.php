@@ -44,7 +44,12 @@
                 <td>{{$p->model}}</td>
                 <td>{{$p->price}}</td>
                 <td>
-                    <form method="post" action="{{ url('/product/destroy/'.$p->code )}}">
+                    <form method="post" action="{{ route( 'product.destroy',$p->code )}}">
+                        <a href={{ route('product.show',$p->code )}}>
+                            <button type="button" class="btn btn-primary">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </a>
                         <a href={{ route( 'product.update',$p->code) }}>
                             <button type="button" class="btn btn-primary">
                                 <i class="far fa-edit"></i>

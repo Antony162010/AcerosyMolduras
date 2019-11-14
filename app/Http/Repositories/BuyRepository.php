@@ -3,11 +3,12 @@
 namespace App\Http\Repositories;
 
 use Illuminate\Support\Str;
+use App\BuyDetail;
 
 use DB;
 use Validator;
 
-class SaleRepository
+class BuyRepository
 {
 
     public function store($request)
@@ -24,13 +25,13 @@ class SaleRepository
                     ->withErrors($validator)
                     ->withInput();
             }
-            
+
             //Arrays que se reciben desde la vista (ids y cantidades)
-            $district = $request->input('district');
+            $idprovider = $request->input('provider');
             $idProduct = $request->input('idproduct');
             $prodQuantity = $request->input('prodquantity');
             $prodPrice = $request->input('prodprice');
-            $idAdmin = $_SESSION['user_session']['user_id'];
+            $idAdmin = 1;
 
             //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
             $arrayId = '';
@@ -41,7 +42,7 @@ class SaleRepository
                 if (sizeof($idProduct) == sizeof($prodPrice)) {
                     if (sizeof($prodQuantity) == sizeof($prodPrice)) {
 
-                        /*Me manda un array de ids y las paso a string concatenandolas (1;2;3;4) 
+                       /*Me manda un array de ids y las paso a string concatenandolas (1;2;3;4) 
                         $idProduct es todo el array [1,2,3] y $id es un elemento de este -> 1 */
                         foreach ($idProduct as $id) { //Recibo [1,2,3]
                             $arrayId = $arrayId . ';' . $id; //Se vuelve '1;2;3' (string)
@@ -65,26 +66,25 @@ class SaleRepository
 
                         //dd($arrayId . ' ' . $arrayQty . ' ' . $arrayPrice);
 
-                        $response = DB::select("CALL demo_sp_insert_product_has_sale(?,?,?,?,?)", [
+                        $response = DB::select("CALL sp_insert_buy(?,?,?,?,?)", [
+                            $idprovider,
+                            $idAdmin,
                             $arrayId,
                             $arrayQty,
-                            $arrayPrice, //En la db estos strings se separan segun el ';' y se insertan.
-                            $idAdmin,
-                            $district
-                        ]);   
+                            $arrayPrice
+                        ]);
 
                         if ($response[0]->response) {
-                            return redirect(route('sale.index'))->with('successMsg', 'Venta registrada.');
+                            return redirect(route('buy.index'))->with('successMsg', 'Compra registrada.');
                         } else {
-                            return redirect(route('sale.index'))->with('errorMsg', 'Error al registrar la venta.');
+                            return redirect(route('buy.index'))->with('errorMsg', 'Error al registrar la compra.');
                         }
                     }
                 }
 
-                /* Problema a solucionar: inserta una fila de puros vacios porque concatena '';1;2;3 */
             } else {
 
-                return redirect(route('sale.index'))->with('errorMsg', 'Error al registrar la venta.');
+                return redirect(route('buy.index'))->with('errorMsg', 'Error al registrar la compra.');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -95,36 +95,51 @@ class SaleRepository
 
     public function show($id)
     {
-        $response = DB::select("CALL demo_sp_get_product_has_sale(?)", [
+        $response = DB::select("CALL sp_get_buy_details(?)", [
             $id
         ]);
 
-        $departments = DB::select('CALL sp_get_departments()');
+        $providers = DB::select('CALL sp_get_providers()');
         if (sizeof($response) > 0) {
             /* Trae los datos del administrador que se repiten en un join*/
-            $saleData = array([
-                'id_sale' => $response[0]->idsale,
-                'department' => $response[0]->iddepar,
-                'idProv' => $response[0]->idProv,
-                'province' => $response[0]->province,
-                'iddistrict' => $response[0]->iddistrict,
-                'district' => $response[0]->district,
+            $buyData = array([
+                'idbuy' => $response[0]->idbuy,
+                'idprovider' => $response[0]->idprovider,
                 'date' => $response[0]->date,
-                'provider_email' => $response[0]->provider_email,
-                'name' => $response[0]->name,
-                'site' => $response[0]->district . ', ' . $response[0]->province . ', ' . $response[0]->department
+                'administrator' => $response[0]->administrator,
+                'total' => $response[0]->total
             ]);
 
-            return view('sale.info')->with([
+            return view('buy.info')->with([
                 'products' => $response,
-                'sale' => $saleData[0],
-                'departments' => $departments
+                'buy' => $buyData[0],
+                'providers' => $providers
             ]);
         } else {
-            return view('sale.info')->with(['sale' => [], 'products' => [], 'departments' => $departments]);
+            return view('buy.info')->with(['buy' => [], 'products' => [], 'providers' => $providers]);
         }
     }
 
+    public function destroy($id)
+    {
+        try
+        {
+            $response = DB::select('CALL sp_delete_buy(?)', [
+                $id
+            ]);
+
+            if ($response) {
+                return redirect('buy')->with('successMsg', 'Se elimino la compra exitosamente.');
+            } else {
+                return redirect('')->with('errorMsg', 'Error al eliminar la compra.'); // 0 o 2, 
+            }
+
+        } catch (\Exception $ex) {
+        return back()
+            ->withErrors($ex->getMessage())
+            ->withInput();
+        }
+    }
 
     public function getProducts($request)
     {
@@ -132,34 +147,4 @@ class SaleRepository
         return json_encode($products);
     }
 
-    public function getProvinces($request)
-    {
-        $provinces = DB::select('CALL sp_get_provinces(?)', [$request->idDepartment]);
-        return json_encode($provinces);
-    }
-
-    public function getDistricts($request)
-    {
-        $districts = DB::select('CALL sp_get_districts(?)', [$request->idProvince]);
-        return json_encode($districts);
-    }
-    /*
-            1. Funcion para mostrar todas las ventas con sus productos respectivos por id de venta
-            (idSale)
-
-            //Jalar datos repetidos de la venta del join entre product_has_sale y sale, para mostrar 
-            toda una venta //
-
-            if(sizeof($response) > 0){
-                    $obj = array([
-                        "name" => $response[0]->nameAdministrator
-                    ]);
-
-                    return view()->with(['obj'=> json_encode($obj)], 'msg'); //retorna objeto
-                }
-            
-            2.  
-
-
-            */
 }

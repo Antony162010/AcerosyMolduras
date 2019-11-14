@@ -49,10 +49,11 @@ Route::group(['middleware' => ['session']], function () {
         Route::get('/', ['as' => 'product.index', 'uses' => 'ProductController@index']);
         Route::get('/create', ['as' => 'product.create', 'uses' => 'ProductController@create']);
         Route::post('/save', ['as' => 'product.save', 'uses' => 'ProductController@save']);
+        Route::get('/{id}', ['as' => 'product.show', 'uses' => 'ProductController@show']); //info
         Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
         Route::put('/edit', ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
         Route::get('/{id}/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
-        Route::delete('/{id}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
+        Route::delete('/{id}', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);
     });
 
     //Sale
@@ -66,6 +67,17 @@ Route::group(['middleware' => ['session']], function () {
         Route::post('/districts', ['as' => 'sale.districts', 'uses' => 'SaleController@getDistricts']);
         Route::post('/products', ['as' => 'sale.products', 'uses' => 'SaleController@getProducts']);
     });
+
+    //Buy
+    Route::group(['prefix' => 'buy'], function () {
+        Route::get('/', ['as' => 'buy.index', 'uses' => 'BuyController@index']);
+        Route::get('/create', ['as' => 'buy.create', 'uses' => 'BuyController@create']);
+        Route::post('/', ['as' => 'buy.store', 'uses' => 'BuyController@store']);
+        Route::get('/{id}', ['as' => 'buy.show', 'uses' => 'BuyController@show']); //info
+        Route::delete('/{id}', ['as' => 'buy.destroy', 'uses' => 'BuyController@destroy']);
+        Route::post('/products', ['as' => 'buy.products', 'uses' => 'BuyController@getProducts']);
+    });
+
 
     /* Cualquier ruta externa no funciona */
     Route::fallback(function () {
