@@ -80,6 +80,12 @@ Route::group(['middleware' => ['session']], function () {
         Route::post('/products', ['as' => 'buy.products', 'uses' => 'BuyController@getProducts']);
     });
 
+    //Quotation 
+    Route::group(['prefix' => 'quotation'], function () {
+        Route::get('/', ['as' => 'quotation.index', 'uses' => 'QuotationController@index']);
+        Route::get('/{id}', ['as' => 'provider.show', 'uses' => 'QuotationController@show']);
+    }); 
+
 
     /* Cualquier ruta externa no funciona */
     Route::fallback(function () {
