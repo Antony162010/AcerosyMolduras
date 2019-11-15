@@ -58,6 +58,9 @@ class ProductRepository
                 'category-product' => 'required',
                 'price-product' => 'required',
                 'brand-product' => 'required',
+                'lenght-product' => 'required',
+                'hight-product' => 'required',
+                'widht-product' => 'required',
                 'model-product' => 'required'
             ], $this->messages);
 
@@ -71,14 +74,20 @@ class ProductRepository
             $categoryProduct = $request->input('category-product');
             $priceProduct = $request->input('price-product');
             $brandProduct = $request->input('brand-product');
+            $lenghtProduct = $request->input('lenght-product');
+            $hightProduct = $request->input('hight-product');
+            $widhtProduct = $request->input('widht-product');
             $modelProduct = $request->input('model-product');
             
             
-            $response = DB::select('CALL sp_insert_product(?,?,?,?,?)', [
+            $response = DB::select('CALL sp_insert_product(?,?,?,?,?,?,?,?)', [
                 $codProduct,
                 $categoryProduct,
                 $priceProduct,
                 $brandProduct,
+                $lenghtProduct,
+                $hightProduct,
+                $widhtProduct,
                 $modelProduct
             ]);
 
@@ -94,6 +103,7 @@ class ProductRepository
         }
     }
 
+    
     public function destroy($id)
     {
         try
@@ -115,7 +125,7 @@ class ProductRepository
         }
     }
 
-    public function editPrice($request)
+    public function edit($request)
     {
         try
         {
@@ -132,10 +142,16 @@ class ProductRepository
 
             $id = $request->input('cod-product');
             $price = $request->input('price-product');
+            $longitud = $request->input('lenght-product');
+            $altura = $request->input('hight-product');
+            $ancho = $request->input('widht-product');
 
-            $response = DB::select('CALL sp_update_price_product(?,?)', [
+            $response = DB::select('CALL sp_update_product(?,?,?,?,?)', [
                 $id,
-                $price
+                $price,
+                $longitud,
+                $altura,
+                $ancho
             ]);
 
             if ($response) {
