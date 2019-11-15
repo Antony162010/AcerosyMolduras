@@ -3,7 +3,6 @@
 namespace App\Http\Repositories;
 
 use DB;
-use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class StoreHouseRepository
@@ -14,12 +13,12 @@ class StoreHouseRepository
         'id-product.required' => 'El campo id-product es necesario.'
     ];
 
-    public function info($request) 
-    { 
+    public function info($request)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'id-product' => 'required',
-                'id-warehouse'=>'required'
+                'id-warehouse' => 'required'
             ], $this->messages);
 
             if ($validator->fails()) {
@@ -39,9 +38,8 @@ class StoreHouseRepository
             if ($response) {
                 return view('storeHouse.index')->with('products', $response);
             } else {
-                return redirect('/'); 
+                return redirect('/');
             }
-
         } catch (\Exception $ex) {
             dd($ex->getMessage());
             return back()
@@ -51,7 +49,7 @@ class StoreHouseRepository
     }
 
 
-    public function store($request) 
+    public function store($request)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -125,15 +123,18 @@ class StoreHouseRepository
         }
     }
 
+    public function getProducts()
+    {
+        $products = DB::select('CALL sp_get_products()');
+        return json_encode($products);
+    }
+
     public function generatePdf($request)
     {
-        // Mail::send('pdf.catalog', [], function ($mail) {
-            $pdf = \PDF::loadView('pdf.catalog');
+        $pdf = \PDF::loadView('pdf.catalog', [
+            'nuevo' => 14
+        ]);
 
-            // $mail->to('antonis162010@gmail.com')->subject('Titulo');
-            // $mail->from('_mainaccount@acerosymolduras.com', 'Aceros y Molduras');
-            // $mail->attachData($pdf->output(), 'Catálogo.pdf');
-            return $pdf->download('Catálogo.pdf');
-        // });
+        return $pdf->download('Catálogo.pdf');
     }
 }

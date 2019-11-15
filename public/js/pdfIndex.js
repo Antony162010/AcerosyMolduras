@@ -1,22 +1,21 @@
 var products = [];
 var productsOptions = '';
-$(document).ready(function() {
+$(document).ready(function () {
     $('#add_product').attr('disabled', true);
     $.ajax({
         dataType: "json",
         type: "POST",
         url: "./products",
-        success: function(result) {
-            console.log('hola')
-            console.log(result)
+        success: function (result) {
             products = result;
+            
             if (result.length > 0) {
                 var pro = '';
-
+                
                 result.forEach(r => {
                     pro += `<option value="${r.code}">${r.code} - ${r.name} - ${r.model}</option>`;
                 });
-
+                
                 productsOptions = pro;
             }
             $('#add_product').attr('disabled', false);
@@ -24,7 +23,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).on('click', '#add_product', function() {
+$(document).on('click', '#add_product', function () {
     $(".products").append(`
         <div class="form-row">
             <div class="form-group col-md-4">
@@ -34,14 +33,8 @@ $(document).on('click', '#add_product', function() {
                     ${productsOptions}
                 </select>
             </div>
-            <div class="form-group col-md-4">
-                <label>Cantidad</label>
-                <input type="number" min="0" class="form-control" name="prodquantity[]" required>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Precio</label>
-                <input type="number" min="0" class="form-control" name="prodprice[]" required>
-            </div>
+            <div class="form-group col-md-4"></div>
+            <div class="form-group col-md-4"></div>
         </div>
     `);
 });

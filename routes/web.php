@@ -38,6 +38,7 @@ Route::group(['middleware' => ['session']], function () {
         Route::post('/products', ['as' => 'store_house.products', 'uses' => 'StoreHouseController@productsByWarehouse']);
         Route::get('/catalog', ['as' => 'store_house.index.catalog', 'uses' => 'StoreHouseController@indexPdf']);
         Route::post('/catalog', ['as' => 'store_house.catalog', 'uses' => 'StoreHouseController@generatePdf']);
+        Route::post('/products', ['as' => 'store_house.products', 'uses' => 'StoreHouseController@getProducts']);
     }); 
     
     //Proveedor
