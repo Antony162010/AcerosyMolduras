@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use Illuminate\Support\Str;
 use DB;
 use Validator;
 
@@ -123,18 +124,54 @@ class StoreHouseRepository
         }
     }
 
-    public function getProducts()
-    {
-        $products = DB::select('CALL sp_get_products()');
-        return json_encode($products);
-    }
-
     public function generatePdf($request)
     {
-        $pdf = \PDF::loadView('pdf.catalog', [
-            'nuevo' => 14
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'idproduct' => 'required'
+            ]);
 
-        return $pdf->download('Catálogo.pdf');
+            if ($validator->fails()) {
+                return redirect(route('store_house.index.catalog'))
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            //Arrays que se reciben desde la vista (ids)
+            $idProduct = $request->input('idproduct');
+
+            //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
+            $arrayId = '';
+
+            /*Me manda un array de ids y las paso a string concatenandolas (1;2;3;4) 
+                        $idProduct es todo el array [1,2,3] y $id es un elemento de este -> 1 */
+            foreach ($idProduct as $id) { //Recibo [1,2,3]
+                $arrayId = $arrayId . ',' . $id; //Se vuelve '1;2;3' (string)
+            }
+
+            $arrayId = Str::replaceArray(',', [''], $arrayId);
+            /*replaceArray recorre todo el string buscando ';', y de acuerdo a la cantidad
+                        de cosas en el array, reemplaza. Como solo se tiene un objeto en el array,
+                        lo reemplaza solo una vez. */
+
+            $response = DB::select("CALL sp_get_for_pdf(?)", [
+                $arrayId
+            ]);
+
+            dd($response);
+            if ($response[0]->response) {
+                $pdf = \PDF::loadView('pdf.catalog', [
+                    'nuevo' => 14
+                ]);
+
+                return $pdf->download('Catálogo.pdf');
+            } else {
+                return redirect(route('store_house.index.catalog'))
+                    ->withInput()
+                    ->with('errorMsg', 'Error al crear el PDF.');
+            }
+        } catch (Exception $e) {
+            return view('error.internalServelError');
+        }
     }
 }

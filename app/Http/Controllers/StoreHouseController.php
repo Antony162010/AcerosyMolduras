@@ -115,13 +115,13 @@ class StoreHouseController extends Controller
         return view('pdf.index')->with(['products' => $products]);
     }
 
-    public function getProducts()
-    {
-        return $this->storeHouseRepository->getProducts();
-    }
-
     public function generatePdf(Request $request)
     {
         return $this->storeHouseRepository->generatePdf($request);
+    }
+
+    public function getProductsByDate(Request $request)
+    {
+        return $this->storeHouseRepository->getProductsByDate($request);
     }
 }

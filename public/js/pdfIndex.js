@@ -30,6 +30,7 @@ $(document).on('click', '#add_product', function () {
                 <label>Producto</label>
                 <select class="form-control products_select" id="cod_product"
                     name="idproduct[]" required>
+                    <option value="" hidden disabled selected>Seleccione producto ...</option>
                     ${productsOptions}
                 </select>
             </div>

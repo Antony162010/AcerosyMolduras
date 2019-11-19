@@ -43,3 +43,8 @@ var config = {
 $(document).ready(function () {
     $('#table_store_house').DataTable(config);
 });
+
+$(document).on("click", "#search_date", function () {
+    
+});
+
