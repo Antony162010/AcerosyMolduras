@@ -13,7 +13,7 @@ $(document).ready(function () {
                 var pro = '';
                 
                 result.forEach(r => {
-                    pro += `<option value="${r.code}">${r.code} - ${r.name} - ${r.model}</option>`;
+                    pro += `<option value="${r.code}">${r.code} - ${r.mark} - ${r.model}</option>`;
                 });
                 
                 productsOptions = pro;
@@ -30,6 +30,7 @@ $(document).on('click', '#add_product', function () {
                 <label>Producto</label>
                 <select class="form-control products_select" id="cod_product"
                     name="idproduct[]" required>
+                    <option value="" hidden disabled selected>Seleccione producto ...</option>
                     ${productsOptions}
                 </select>
             </div>

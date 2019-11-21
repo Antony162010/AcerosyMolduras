@@ -8,13 +8,7 @@ var config = {
         "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 
     "buttons": [
-        {
-            "text": "Agregar producto al almacén",
-            "attr": {
-                class: "btn btn-primary",
-                onclick: "window.location='./store_house/create'"
-            }
-        }
+        
     ],
 
     "language": {
@@ -41,10 +35,5 @@ var config = {
 }
 
 $(document).ready(function () {
-    $('#table_store_house').DataTable(config);
+    $('#table_sale').DataTable(config);
 });
-
-$(document).on("click", "#search_date", function () {
-    
-});
-

@@ -32,3 +32,8 @@
     font-size: 25px;
     color: #1b4f72;
 }
+
+
+input[type="file"] {
+    display: none;
+}
