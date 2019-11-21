@@ -33,6 +33,10 @@
                 <em class="fas fa-cart-plus fa-5x"></em><br />
             Gestionar<br>Compras
         </a>
+        <a href={{ route('quotation.index') }} class="btn btn-sq-lg btn-light">
+            <em class="fas fa-comments-dollar fa-5x"></em><br />
+        Visualizar<br>Cotizaciones
+        </a>
     </p>
 </div>
 @endsection
