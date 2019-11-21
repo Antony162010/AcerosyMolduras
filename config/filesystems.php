@@ -43,9 +43,9 @@ return [
 
     'disks' => [
 
-        'files' => [
+        'images' => [
             'driver' => 'local',
-            'root' => env('STORAGE_FILES_PATH')
+            'root' => public_path('img')
         ],
 
         'local' => [

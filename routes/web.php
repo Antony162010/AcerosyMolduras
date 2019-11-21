@@ -36,6 +36,9 @@ Route::group(['middleware' => ['session']], function () {
         Route::delete('/destroy', ['as' => 'store_house.destroy', 'uses' => 'StoreHouseController@destroy']);
         Route::post('/info', ['as' => 'store_house.info', 'uses' => 'StoreHouseController@info']);
         Route::post('/products', ['as' => 'store_house.products', 'uses' => 'StoreHouseController@productsByWarehouse']);
+        Route::get('/catalog', ['as' => 'store_house.index.catalog', 'uses' => 'StoreHouseController@indexPdf']);
+        Route::post('/catalog', ['as' => 'store_house.catalog', 'uses' => 'StoreHouseController@generatePdf']);
+        Route::post('/date', ['as' => 'store_house.date', 'uses' => 'StoreHouseController@getProductsByDate']);
     }); 
     
     //Proveedor
@@ -81,7 +84,7 @@ Route::group(['middleware' => ['session']], function () {
     //Quotation 
     Route::group(['prefix' => 'quotation'], function () {
         Route::get('/', ['as' => 'quotation.index', 'uses' => 'QuotationController@index']);
-        Route::get('/{id}', ['as' => 'provider.show', 'uses' => 'QuotationController@show']);
+        Route::get('/{id}', ['as' => 'quotation.show', 'uses' => 'QuotationController@show']);
     }); 
 
 

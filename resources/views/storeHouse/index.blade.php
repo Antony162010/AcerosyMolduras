@@ -28,11 +28,18 @@
     <div class="row">
         <div class="col-sm-4">Busque por fecha, por defecto la fecha acual:</div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-3"><input type="text" class="datepicker text-center"
-                value="{{ date('d/m/Y',strtotime(now())) }}" required></div>
+        <div class="col-sm-3"><input type="date" class="form-control datepicker text-center"
+                value="{{ date('Y-m-d',strtotime(now())) }}"></div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-1"><button type="button" class="btn btn-primary">Buscar</button></div>
+        <div class="col-sm-1"><button type="button" class="btn btn-primary" id="search_date">Buscar</button></div>
         <div class="col-sm-2"></div>
+    </div>
+    <div class="row">
+        <a class="nav-link" href={{ route('store_house.catalog') }}>
+            <button type="button" class="btn btn-primary">
+                Generar Catálogo
+            </button>
+        </a>
     </div>
     <br /><br />
 

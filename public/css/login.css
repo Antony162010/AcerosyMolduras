@@ -6,8 +6,8 @@
 .login-background {
   background-image: url(../img/login-background.png);
   background-image: linear-gradient(
-      rgba(15, 25, 53, 0.85),
-      rgba(15, 25, 53, 0.85)
+      rgba(11, 76, 95, 1),
+      rgba(11, 76, 95, 1)
     ),
     url(../img/login-background.png);
   background-position: center center;

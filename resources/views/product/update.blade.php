@@ -3,7 +3,7 @@
 {{-- Header --}}
 @section('title', 'Productos | ')
 @section('scripts')
-<script type="text/javascript" src="{{ asset('js/product.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/productForm.js') }}"></script>
 @endsection
 @section('assets')
 <link href="{{ asset('css/product.css') }}" rel="stylesheet">

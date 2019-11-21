@@ -29,10 +29,10 @@ class QuotationRepository
                 'phone' => $response[0]->phone
             ]);
             
-            return ([$quotationData, $response]);/*view('quotation')->with([
+            return view('quotation.info')->with([
                 'products' => $response,
                 'quotation' => $quotationData[0]
-            ]);*/
+            ]); //([$quotationData, $response]);/*
         } else {
             return view('sale.info')->with(['sale' => [], 'products' => []]);
         }

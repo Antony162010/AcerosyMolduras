@@ -42,7 +42,7 @@
                 <td>{{$p->name}}</td>
                 <td>{{$p->mark}}</td>
                 <td>{{$p->model}}</td>
-                <td>{{$p->price}}</td>
+                <td>S/. {{$p->price}}.00</td>
                 <td>
                     <form method="post" action="{{ route( 'product.destroy',$p->code )}}">
                         <a href={{ route('product.show',$p->code )}}>

@@ -1,0 +1,41 @@
+.color-secondary {
+  color: orangered;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+@page {
+  margin: 0cm 0cm;
+}
+
+/** Define the header rules **/
+header {
+  position: fixed;
+  top: 0cm;
+  left: 0cm;
+  right: 0cm;
+  height: 2cm;
+
+  /** Extra personal styles **/
+  background-color: #1E2F4D;
+  color: white;
+  text-align: center;
+  line-height: 1.5cm;
+}
+
+/** Define the footer rules **/
+footer {
+  position: fixed;
+  bottom: 0cm;
+  left: 0cm;
+  right: 0cm;
+  height: 2cm;
+
+  /** Extra personal styles **/
+  background-color: #1E2F4D;
+  color: white;
+  text-align: center;
+  line-height: 1.5cm;
+}

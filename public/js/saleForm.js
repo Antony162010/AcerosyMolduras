@@ -1,6 +1,7 @@
 var products = [];
 var productsOptions = '';
 $(document).ready(function() {
+    $('#add_product').attr('disabled', true);
     $.ajax({
         dataType: "json",
         type: "POST",
@@ -17,6 +18,7 @@ $(document).ready(function() {
 
                 productsOptions = pro;
             }
+            $('#add_product').attr('disabled', false);
         }
     });
 });

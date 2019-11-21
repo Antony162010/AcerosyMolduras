@@ -18,7 +18,7 @@ class QuotationController extends Controller
     public function index()
     {
         $quotations = DB::select('CALL demo_sp_get_quotations()');
-        return $quotations;//view('quotation')->with(['quotations' => $quotations]);
+        return view('quotation.index')->with(['quotations' => $quotations]);
     }
 
     public function show($id) //Mostrar cotización según id

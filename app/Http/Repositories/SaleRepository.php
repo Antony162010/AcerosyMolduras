@@ -112,6 +112,7 @@ class SaleRepository
                 'date' => $response[0]->date,
                 'provider_email' => $response[0]->provider_email,
                 'name' => $response[0]->name,
+                'total_price' => $response[0]->totalprice,
                 'site' => $response[0]->district . ', ' . $response[0]->province . ', ' . $response[0]->department
             ]);
 

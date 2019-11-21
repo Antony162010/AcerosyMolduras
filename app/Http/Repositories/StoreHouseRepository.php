@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use Illuminate\Support\Str;
 use DB;
 use Validator;
 
@@ -13,12 +14,12 @@ class StoreHouseRepository
         'id-product.required' => 'El campo id-product es necesario.'
     ];
 
-    public function info($request) 
-    { 
+    public function info($request)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'id-product' => 'required',
-                'id-warehouse'=>'required'
+                'id-warehouse' => 'required'
             ], $this->messages);
 
             if ($validator->fails()) {
@@ -38,9 +39,8 @@ class StoreHouseRepository
             if ($response) {
                 return view('storeHouse.index')->with('products', $response);
             } else {
-                return redirect('/'); 
+                return redirect('/');
             }
-
         } catch (\Exception $ex) {
             dd($ex->getMessage());
             return back()
@@ -50,7 +50,7 @@ class StoreHouseRepository
     }
 
 
-    public function store($request) 
+    public function store($request)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -121,6 +121,69 @@ class StoreHouseRepository
             return back()
                 ->withErrors($ex->getMessage())
                 ->withInput();
+        }
+    }
+
+    public function generatePdf($request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'idproduct' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect(route('store_house.index.catalog'))
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            //Arrays que se reciben desde la vista (ids)
+            $idProduct = $request->input('idproduct');
+
+            //Variables que guardarán en un string los ids y cantidades, 1;2;3;4;5
+            $arrayId = '';
+
+            /*Me manda un array de ids y las paso a string concatenandolas (1;2;3;4) 
+                        $idProduct es todo el array [1,2,3] y $id es un elemento de este -> 1 */
+            foreach ($idProduct as $i => $id) { //Recibo [1,2,3]
+                if ($i == 0)
+                    $arrayId = '"' . $id . '"';
+                else
+                    $arrayId = $arrayId . ',"' . $id . '"'; //Se vuelve '1;2;3' (string)
+            }
+
+            $response = DB::select("CALL sp_get_for_pdf(?)", [
+                $arrayId
+            ]);
+
+            if (sizeof($response) > 0) {
+
+                $categories = DB::select("CALL sp_get_categories()");
+
+                $obj = array();
+
+                foreach ($categories as $cat) {
+                    $obj[$cat->idcategory] = array();
+                    foreach ($response as $res) {
+                        if ($cat->idcategory == $res->category_idcategory) {
+                            \array_push($obj[$cat->idcategory], $res);
+                        }
+                    }
+                }
+
+                $pdf = \PDF::loadView('pdf.catalog', [
+                    'products' => $obj,
+                    'categories' => $categories
+                ]);
+
+                return $pdf->download('Catálogo.pdf');
+            } else {
+                return redirect(route('store_house.index.catalog'))
+                    ->withInput()
+                    ->with('errorMsg', 'No hay productos para crear el catálogo PDF.');
+            }
+        } catch (Exception $e) {
+            return view('error.internalServelError');
         }
     }
 }

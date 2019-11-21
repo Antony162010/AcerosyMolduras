@@ -105,7 +105,22 @@ class StoreHouseController extends Controller
 
     public function productsByWarehouse(Request $request)
     {
-        $products = DB::select('CALL sp_get_products_avaliable_by_warehouse(?)', [$request->idWarehouse]);
+        $products = DB::select('CALL sp_get_products()');
         return json_encode($products);
+    }
+
+    public function indexPdf()
+    {
+        return view('pdf.index');
+    }
+
+    public function generatePdf(Request $request)
+    {
+        return $this->storeHouseRepository->generatePdf($request);
+    }
+
+    public function getProductsByDate(Request $request)
+    {
+        return $this->storeHouseRepository->getProductsByDate($request);
     }
 }
