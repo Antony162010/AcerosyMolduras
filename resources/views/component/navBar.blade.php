@@ -28,6 +28,10 @@
                 <a class="nav-link" href={{ route('buy.index') }}>
                     <em class="fas fa-cart-plus m-r-4 "></em>Compras</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href={{ route('quotation.index') }}>
+                    <em class="fas fa-comments-dollar m-r-4 "></em>Cotizaciones</a>
+            </li>
 
         </ul>
 

@@ -84,7 +84,7 @@ Route::group(['middleware' => ['session']], function () {
     //Quotation 
     Route::group(['prefix' => 'quotation'], function () {
         Route::get('/', ['as' => 'quotation.index', 'uses' => 'QuotationController@index']);
-        Route::get('/{id}', ['as' => 'provider.show', 'uses' => 'QuotationController@show']);
+        Route::get('/{id}', ['as' => 'quotation.show', 'uses' => 'QuotationController@show']);
     }); 
 
 

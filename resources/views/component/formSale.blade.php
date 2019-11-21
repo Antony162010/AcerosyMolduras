@@ -76,6 +76,12 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="total">Ingreso total:</label>
+                <input type="text" step="any" class="form-control" value="S/. {{$sale['total_price']}}" disabled>
+            </div>
+        </div>
         @endif
     </form>
 </div>
