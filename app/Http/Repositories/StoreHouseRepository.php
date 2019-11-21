@@ -157,8 +157,23 @@ class StoreHouseRepository
             ]);
 
             if (sizeof($response) > 0) {
+
+                $categories = DB::select("CALL sp_get_categories()");
+
+                $obj = array();
+
+                foreach ($categories as $cat) {
+                    $obj[$cat->idcategory] = array();
+                    foreach ($response as $res) {
+                        if ($cat->idcategory == $res->category_idcategory) {
+                            \array_push($obj[$cat->idcategory], $res);
+                        }
+                    }
+                }
+
                 $pdf = \PDF::loadView('pdf.catalog', [
-                    'nuevo' => 14
+                    'products' => $obj,
+                    'categories' => $categories
                 ]);
 
                 return $pdf->download('Catálogo.pdf');

@@ -45,7 +45,6 @@
             <div class="form-group col-md-2"><button type="submit" class="btn btn-primary">Generar pdf</button></div>
         </div>
 
-
     </form>
 </div>
 @endsection

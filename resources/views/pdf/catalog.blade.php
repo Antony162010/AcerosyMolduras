@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html"/>
+    <meta http-equiv="Content-Type" content="text/html" />
     <title>Document</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -21,8 +21,21 @@
     </div>
 
     <div class="page-break"></div>
-
+    
     {{-- Siguientes --}}
+    @foreach ($products as $item)
+    {{-- @if (sizeof($item)>0) --}}
+    @foreach ($item as $i)
+    {{$i->model}}
+    {{$i->name}}
+    
+    @endforeach
+    <div class="page-break"></div>
+    {{-- @endif --}}
+    @endforeach
+    <header><span><img class="navbar-logo" src="../public/img/Aceros y molduras logo.png" /></span></header>
+
+    <footer>footer on each page</footer>
 </body>
 
 </html>
