@@ -145,21 +145,18 @@ class StoreHouseRepository
 
             /*Me manda un array de ids y las paso a string concatenandolas (1;2;3;4) 
                         $idProduct es todo el array [1,2,3] y $id es un elemento de este -> 1 */
-            foreach ($idProduct as $id) { //Recibo [1,2,3]
-                $arrayId = $arrayId . ',' . $id; //Se vuelve '1;2;3' (string)
+            foreach ($idProduct as $i => $id) { //Recibo [1,2,3]
+                if ($i == 0)
+                    $arrayId = '"' . $id . '"';
+                else
+                    $arrayId = $arrayId . ',"' . $id . '"'; //Se vuelve '1;2;3' (string)
             }
-
-            $arrayId = Str::replaceArray(',', [''], $arrayId);
-            /*replaceArray recorre todo el string buscando ';', y de acuerdo a la cantidad
-                        de cosas en el array, reemplaza. Como solo se tiene un objeto en el array,
-                        lo reemplaza solo una vez. */
 
             $response = DB::select("CALL sp_get_for_pdf(?)", [
                 $arrayId
             ]);
 
-            dd($response);
-            if ($response[0]->response) {
+            if (sizeof($response) > 0) {
                 $pdf = \PDF::loadView('pdf.catalog', [
                     'nuevo' => 14
                 ]);
@@ -168,7 +165,7 @@ class StoreHouseRepository
             } else {
                 return redirect(route('store_house.index.catalog'))
                     ->withInput()
-                    ->with('errorMsg', 'Error al crear el PDF.');
+                    ->with('errorMsg', 'No hay productos para crear el catálogo PDF.');
             }
         } catch (Exception $e) {
             return view('error.internalServelError');

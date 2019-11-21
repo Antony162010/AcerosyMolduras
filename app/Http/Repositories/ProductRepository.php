@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use DB;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductRepository
 {
@@ -13,12 +14,12 @@ class ProductRepository
         'cod-product.required' => 'El campo id-product es necesario.'
     ];
 
-    public function info($request) 
-    { 
+    public function info($request)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'id-product' => 'required',
-                'id-warehouse'=>'required'
+                'id-warehouse' => 'required'
             ], $this->messages);
 
             if ($validator->fails()) {
@@ -38,9 +39,8 @@ class ProductRepository
             if ($response) {
                 return view('storeHouse.index')->with('products', $response);
             } else {
-                return redirect('/'); 
+                return redirect('/');
             }
-
         } catch (\Exception $ex) {
             dd($ex->getMessage());
             return back()
@@ -50,8 +50,8 @@ class ProductRepository
     }
 
 
-    public function store($request) 
-    { 
+    public function store($request)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'cod-product' => 'required',
@@ -78,9 +78,17 @@ class ProductRepository
             $hightProduct = $request->input('hight-product');
             $widhtProduct = $request->input('widht-product');
             $modelProduct = $request->input('model-product');
-            
-            
-            $response = DB::select('CALL sp_insert_product(?,?,?,?,?,?,?,?)', [
+
+            $imageName = null;
+            if ($request->hasFile('image-product')) {
+                $imageProduct = $request->file('image-product');
+                $extension = $imageProduct->getClientOriginalExtension();
+
+                $imageName = time() . '.' . $extension;
+            }
+            // dd($request);
+
+            $response = DB::select('CALL sp_insert_product(?,?,?,?,?,?,?,?,?)', [
                 $codProduct,
                 $categoryProduct,
                 $priceProduct,
@@ -88,13 +96,18 @@ class ProductRepository
                 $lenghtProduct,
                 $hightProduct,
                 $widhtProduct,
-                $modelProduct
+                $modelProduct,
+                $imageName
             ]);
 
-            if ($response) {
-                return redirect('product')->with('successMsg', 'Se registro el producto exitosamente.');
+            if ($response[0]->response) {
+                if ($request->hasFile('image-product')) {
+                    $imageProduct->storeAs('', $imageName, 'images');
+                }
+
+                return redirect(route('product.index'))->with('successMsg', 'Se registro el producto exitosamente.');
             } else {
-                return redirect('')->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
+                return redirect(route('product.create'))->withInput()->with('errorMsg', 'Error al insertar el producto.'); // 0 o 2, 
             }
         } catch (\Exception $ex) {
             return back()
@@ -103,32 +116,29 @@ class ProductRepository
         }
     }
 
-    
+
     public function destroy($id)
     {
-        try
-        {
+        try {
             $response = DB::select('CALL sp_delete_product(?)', [
                 $id
             ]);
 
-            if ($response) {
-                return redirect('product')->with('successMsg', 'Se elimino el producto exitosamente.');
+            if ($response[0]->response) {
+                return redirect(route('product.index'))->with('successMsg', 'Se elimino el producto exitosamente.');
             } else {
                 return redirect('')->with('errorMsg', 'Error al eliminar el producto.'); // 0 o 2, 
             }
-
         } catch (\Exception $ex) {
-        return back()
-            ->withErrors($ex->getMessage())
-            ->withInput();
+            return back()
+                ->withErrors($ex->getMessage())
+                ->withInput();
         }
     }
 
     public function edit($request)
     {
-        try
-        {
+        try {
             $validator = Validator::make($request->all(), [
                 'cod-product' => 'required',
                 'price-product' => 'required',
@@ -146,24 +156,41 @@ class ProductRepository
             $altura = $request->input('hight-product');
             $ancho = $request->input('widht-product');
 
-            $response = DB::select('CALL sp_update_product(?,?,?,?,?)', [
+            $imageName = null;
+            if ($request->hasFile('image-product')) {
+                $imageProduct = $request->file('image-product');
+                $oldImage = DB::table('product')
+                    ->select('url')
+                    ->where('code', $id)
+                    ->get();
+                $extension = $imageProduct->getClientOriginalExtension();
+                $imageName = time() . '.' . $extension;
+            }
+
+            $response = DB::select('CALL sp_update_product(?,?,?,?,?,?)', [
                 $id,
                 $price,
                 $longitud,
                 $altura,
-                $ancho
+                $ancho,
+                $imageName
             ]);
 
-            if ($response) {
-                return redirect('product')->with('successMsg', 'Se actualizo el producto exitosamente.');
-            } else {
-                return redirect('')->with('errorMsg', 'Error al actualizar el producto.'); // 0 o 2, 
-            }
+            if ($response[0]->response) {
+                if ($request->hasFile('image-product')) {
+                    if ($oldImage[0]->url != null)
+                        Storage::disk('images')->delete($oldImage[0]->url);
+                    $imageProduct->storeAs('', $imageName, 'images');
+                }
 
+                return redirect(route('product.index'))->with('successMsg', 'Se actualizo el producto exitosamente.');
+            } else {
+                return redirect(route('product.update', $id))->withInput()->with('errorMsg', 'Error al actualizar el producto.'); // 0 o 2, 
+            }
         } catch (\Exception $ex) {
-        return back()
-            ->withErrors($ex->getMessage())
-            ->withInput();
+            return back()
+                ->withErrors($ex->getMessage())
+                ->withInput();
         }
     }
 }

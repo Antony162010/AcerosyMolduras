@@ -105,14 +105,13 @@ class StoreHouseController extends Controller
 
     public function productsByWarehouse(Request $request)
     {
-        $products = DB::select('CALL sp_get_products_avaliable_by_warehouse(?)', [$request->idWarehouse]);
+        $products = DB::select('CALL sp_get_products()');
         return json_encode($products);
     }
 
     public function indexPdf()
     {
-        $products = DB::select('CALL sp_get_products()');
-        return view('pdf.index')->with(['products' => $products]);
+        return view('pdf.index');
     }
 
     public function generatePdf(Request $request)

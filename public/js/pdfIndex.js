@@ -13,7 +13,7 @@ $(document).ready(function () {
                 var pro = '';
                 
                 result.forEach(r => {
-                    pro += `<option value="${r.code}">${r.code} - ${r.name} - ${r.model}</option>`;
+                    pro += `<option value="${r.code}">${r.code} - ${r.mark} - ${r.model}</option>`;
                 });
                 
                 productsOptions = pro;
